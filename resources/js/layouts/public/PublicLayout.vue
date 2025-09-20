@@ -158,7 +158,15 @@ function backToTop() {
           <a :href="`tel:${phone.replace(/\s+/g, '')}`" class="mt-3 inline-block rounded-md bg-[#FFD700] px-3 py-1.5 text-sm font-semibold text-black hover:brightness-95">Call {{ phone }}</a>
         </div>
       </div>
-      <div class="mx-auto mt-10 max-w-7xl px-4 text-xs text-neutral-500">&copy; {{ new Date().getFullYear() }} Teviot Tyres. All rights reserved.</div>
+      <div class="mx-auto mt-10 max-w-7xl px-4">
+        <div class="flex flex-col items-center justify-between gap-4 border-t border-neutral-800 pt-8 text-xs text-neutral-500 md:flex-row">
+          <div>&copy; {{ new Date().getFullYear() }} Teviot Tyres. All rights reserved.</div>
+          <div class="flex items-center gap-6">
+            <Link href="/privacy" class="hover:text-[#FFD700] transition-colors">Privacy Policy</Link>
+            <Link href="/terms" class="hover:text-[#FFD700] transition-colors">Terms of Service</Link>
+          </div>
+        </div>
+      </div>
     </footer>
 
     <!-- Mobile menu overlay -->
