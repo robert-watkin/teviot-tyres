@@ -76,7 +76,7 @@ const isActive = (id: string) => activeSection.value === id;
     <section id="tyres" class="mx-auto w-full max-w-7xl scroll-mt-24 px-4 py-12">
       <Reveal mode="up">
         <div class="overflow-hidden rounded-xl border border-neutral-800 bg-neutral-950 shadow transition hover:shadow-lg hover:shadow-black/20">
-          <div class="h-28 w-full bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1515923162045-7b3b3f9ae1ae?q=80&w=1200&auto=format&fit=crop')"></div>
+          <div class="h-28 w-full bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1515923162045-7b3b3f9ae1ae?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
           <div class="p-6">
           <div class="flex items-center gap-3 text-[#FFD700]"><Wrench class="h-5 w-5" /><h2 class="text-2xl font-semibold">Tyres</h2></div>
           <p class="mt-2 text-neutral-300">Budget, mid-range, and premium tyres. Fitted and balanced. Includes FREE Tyre Check. Bring your reg or size; we’ll advise the best option for your vehicle and budget.</p>
@@ -94,7 +94,7 @@ const isActive = (id: string) => activeSection.value === id;
     <section id="mot-class-4-7" class="mx-auto w-full max-w-7xl scroll-mt-24 px-4 py-12">
       <Reveal mode="up" :delay="60">
         <div class="overflow-hidden rounded-xl border border-neutral-800 bg-neutral-950 shadow transition hover:shadow-lg hover:shadow-black/20">
-          <div class="h-28 w-full bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1517170652703-225d4bd1b699?q=80&w=1200&auto=format&fit=crop')"></div>
+          <div class="h-28 w-full bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1517170652703-225d4bd1b699?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
           <div class="p-6">
           <div class="flex items-center gap-3 text-[#38bdf8]"><CheckCircle2 class="h-5 w-5" /><h2 class="text-2xl font-semibold">Class 4 & 7 MOTs</h2></div>
           <p class="mt-2 text-neutral-300">DVSA‑approved testing with quick results. We’ll keep you informed and advise on any advisories or failures with clear next steps.</p>
@@ -111,7 +111,7 @@ const isActive = (id: string) => activeSection.value === id;
     <section id="mot-prep" class="mx-auto w-full max-w-7xl scroll-mt-24 px-4 py-12">
       <Reveal mode="up" :delay="80">
         <div class="overflow-hidden rounded-xl border border-neutral-800 bg-neutral-950 shadow transition hover:shadow-lg hover:shadow-black/20">
-          <div class="h-28 w-full bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop')"></div>
+          <div class="h-28 w-full bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
           <div class="p-6">
           <div class="flex items-center gap-3 text-[#f97316]"><Hammer class="h-5 w-5" /><h2 class="text-2xl font-semibold">MOT Preparation</h2></div>
           <p class="mt-2 text-neutral-300">Pre‑checks to help you avoid failures. We’ll identify likely issues ahead of time and fix them quickly where needed.</p>
@@ -128,7 +128,7 @@ const isActive = (id: string) => activeSection.value === id;
     <section id="servicing" class="mx-auto w-full max-w-7xl scroll-mt-24 px-4 py-12">
       <Reveal mode="up" :delay="100">
         <div class="overflow-hidden rounded-xl border border-neutral-800 bg-neutral-950 shadow transition hover:shadow-lg hover:shadow-black/20">
-          <div class="h-28 w-full bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1517167685280-1456c9b3c1f5?q=80&w=1200&auto=format&fit=crop')"></div>
+          <div class="h-28 w-full bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1517167685280-1456c9b3c1f5?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
           <div class="p-6">
           <div class="flex items-center gap-3 text-[#a78bfa]"><Wrench class="h-5 w-5" /><h2 class="text-2xl font-semibold">Servicing</h2></div>
           <p class="mt-2 text-neutral-300">General maintenance for all vehicles. Oil and filters, fluids, safety inspections, and more — keeping you running smoothly.</p>
@@ -145,7 +145,7 @@ const isActive = (id: string) => activeSection.value === id;
     <section id="diagnostics" class="mx-auto w-full max-w-7xl scroll-mt-24 px-4 py-12">
       <Reveal mode="up" :delay="120">
         <div class="overflow-hidden rounded-xl border border-neutral-800 bg-neutral-950 shadow transition hover:shadow-lg hover:shadow-black/20">
-          <div class="h-28 w-full bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?q=80&w=1200&auto=format&fit=crop')"></div>
+          <div class="h-28 w-full bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
           <div class="p-6">
           <div class="flex items-center gap-3 text-[#34d399]"><Gauge class="h-5 w-5" /><h2 class="text-2xl font-semibold">Diagnostics</h2></div>
           <p class="mt-2 text-neutral-300">Modern diagnostic tools to quickly identify faults and get you back on the road with confidence.</p>
@@ -162,7 +162,7 @@ const isActive = (id: string) => activeSection.value === id;
     <section id="battery" class="mx-auto w-full max-w-7xl scroll-mt-24 px-4 py-12">
       <Reveal mode="up" :delay="140">
         <div class="overflow-hidden rounded-xl border border-neutral-800 bg-neutral-950 shadow transition hover:shadow-lg hover:shadow-black/20">
-          <div class="h-28 w-full bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1616803140344-5465f6e93dfd?q=80&w=1200&auto=format&fit=crop')"></div>
+          <div class="h-28 w-full bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1616803140344-5465f6e93dfd?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
           <div class="p-6">
           <div class="flex items-center gap-3 text-[#f43f5e]"><Battery class="h-5 w-5" /><h2 class="text-2xl font-semibold">Battery Replacement</h2></div>
           <p class="mt-2 text-neutral-300">Battery testing and replacement while you wait. We’ll supply and fit the right battery for your vehicle.</p>

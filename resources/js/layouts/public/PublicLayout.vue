@@ -51,15 +51,15 @@ function backToTop() {
     <Head :title="props.title" />
 
     <!-- Header -->
-    <header :class="['sticky top-0 z-40 border-b border-neutral-800/80 text-white backdrop-blur supports-[backdrop-filter]:bg-black/70', headerHasShadow ? 'shadow-[0_1px_0_0_rgba(255,255,255,0.04)]' : '']">
+    <header class="fixed top-0 z-40 w-full border-b text-white transition-all duration-300" :class="headerHasShadow ? 'border-neutral-800/80 backdrop-blur supports-[backdrop-filter]:bg-black/80 shadow-[0_1px_0_0_rgba(255,255,255,0.04)]' : 'border-transparent'">
       <div class="mx-auto grid h-16 grid-cols-3 items-center px-4 md:max-w-7xl">
         <!-- Left: Logo / Mobile menu button -->
         <div class="flex items-center gap-3">
-          <button class="inline-flex items-center justify-center rounded-md border border-neutral-800 p-2 text-neutral-300 hover:bg-neutral-900 md:hidden" @click="mobileOpen = true" aria-label="Open menu" :aria-expanded="mobileOpen">
+          <button class="inline-flex items-center justify-center rounded-md border p-2 text-neutral-300 hover:bg-neutral-900 md:hidden" :class="headerHasShadow ? 'border-neutral-800' : 'border-neutral-700/50'" @click="mobileOpen = true" aria-label="Open menu" :aria-expanded="mobileOpen">
             <Menu class="h-5 w-5" />
           </button>
           <Link href="/" class="flex items-center gap-2">
-            <span class="flex items-center justify-center rounded-md bg-[#FFD700]/15 p-1.5">
+            <span class="flex items-center justify-center rounded-md p-1.5" :class="headerHasShadow ? 'bg-[#FFD700]/15' : 'bg-[#FFD700]/20'">
               <AppLogoIcon class="size-5 text-[#FFD700]" />
             </span>
             <span class="text-lg font-semibold tracking-tight">
@@ -70,11 +70,21 @@ function backToTop() {
 
         <!-- Center: Nav (desktop) -->
         <nav class="pointer-events-auto hidden items-center justify-center gap-6 md:flex">
-          <Link href="/services" :aria-current="isActive('/services') ? 'page' : undefined" :class="cn('text-sm transition-colors', isActive('/services') ? 'text-[#FFD700]' : 'text-neutral-300 hover:text-white')">Services</Link>
-          <Link href="/reg-lookup" :aria-current="isActive('/reg-lookup') ? 'page' : undefined" :class="cn('text-sm transition-colors', isActive('/reg-lookup') ? 'text-[#FFD700]' : 'text-neutral-300 hover:text-white')">Reg Lookup</Link>
-          <Link href="/contact" :aria-current="isActive('/contact') ? 'page' : undefined" :class="cn('text-sm transition-colors', isActive('/contact') ? 'text-[#FFD700]' : 'text-neutral-300 hover:text-white')">Contact</Link>
-          <Link href="/terms" :aria-current="isActive('/terms') ? 'page' : undefined" :class="cn('text-sm transition-colors', isActive('/terms') ? 'text-[#FFD700]' : 'text-neutral-300 hover:text-white')">T&Cs</Link>
-          <Link href="/privacy" :aria-current="isActive('/privacy') ? 'page' : undefined" :class="cn('text-sm transition-colors', isActive('/privacy') ? 'text-[#FFD700]' : 'text-neutral-300 hover:text-white')">Privacy</Link>
+          <Link href="/services" :aria-current="isActive('/services') ? 'page' : undefined" :class="cn('text-sm transition-colors', isActive('/services') ? 'text-[#FFD700]' : 'text-neutral-300 hover:text-white', headerHasShadow ? '' : 'drop-shadow-sm')">
+            Services
+          </Link>
+          <Link href="/reg-lookup" :aria-current="isActive('/reg-lookup') ? 'page' : undefined" :class="cn('text-sm transition-colors', isActive('/reg-lookup') ? 'text-[#FFD700]' : 'text-neutral-300 hover:text-white', headerHasShadow ? '' : 'drop-shadow-sm')">
+            Reg Lookup
+          </Link>
+          <Link href="/contact" :aria-current="isActive('/contact') ? 'page' : undefined" :class="cn('text-sm transition-colors', isActive('/contact') ? 'text-[#FFD700]' : 'text-neutral-300 hover:text-white', headerHasShadow ? '' : 'drop-shadow-sm')">
+            Contact
+          </Link>
+          <Link href="/terms" :aria-current="isActive('/terms') ? 'page' : undefined" :class="cn('text-sm transition-colors', isActive('/terms') ? 'text-[#FFD700]' : 'text-neutral-300 hover:text-white', headerHasShadow ? '' : 'drop-shadow-sm')">
+            T&Cs
+          </Link>
+          <Link href="/privacy" :aria-current="isActive('/privacy') ? 'page' : undefined" :class="cn('text-sm transition-colors', isActive('/privacy') ? 'text-[#FFD700]' : 'text-neutral-300 hover:text-white', headerHasShadow ? '' : 'drop-shadow-sm')">
+            Privacy
+          </Link>
         </nav>
 
         <!-- Right: CTAs -->
@@ -86,15 +96,15 @@ function backToTop() {
             <Link href="/dashboard" class="hidden rounded-md border border-neutral-700 px-3 py-1.5 text-sm font-medium text-neutral-100 hover:bg-neutral-900 sm:inline-block">Dashboard</Link>
           </template>
           <template v-else>
-            <Link href="/login" class="hidden text-sm text-neutral-300 hover:text-white sm:inline-block">Log in</Link>
-            <Link href="/register" class="hidden rounded-md bg-white px-3 py-1.5 text-sm font-medium text-black hover:bg-neutral-200 sm:inline-block">Register</Link>
+            <Link href="/login" class="hidden text-sm sm:inline-block" :class="headerHasShadow ? 'text-neutral-300 hover:text-white' : 'text-neutral-200 hover:text-white drop-shadow-sm'">Log in</Link>
+            <Link href="/register" class="hidden rounded-md bg-white px-3 py-1.5 text-sm font-medium text-black hover:bg-neutral-200 shadow-md sm:inline-block">Register</Link>
           </template>
         </div>
       </div>
     </header>
 
     <!-- Page content -->
-    <main class="min-h-[calc(100vh-8rem)] bg-neutral-950 text-neutral-100">
+    <main class="bg-neutral-950 text-neutral-100" style="padding-top: 4rem;">
       <slot />
     </main>
 
