@@ -293,21 +293,27 @@ onBeforeUnmount(() => {
           </div>
 
           <!-- Stats -->
-          <div class="mt-7 grid max-w-lg grid-cols-3 gap-3 text-center text-sm text-neutral-200">
-            <div class="rounded-md border border-neutral-800/70 bg-black/50 p-3 backdrop-blur">
-              <Tools class="h-4 w-4" />
+          <div class="mt-7 grid max-w-lg grid-cols-3 gap-3 text-center">
+            <div class="group relative rounded-xl border border-neutral-800/70 bg-gradient-to-br from-neutral-900/60 to-black/40 p-4 backdrop-blur-sm hover:border-[#FFD700]/50 hover:from-[#FFD700]/10 hover:to-amber-900/20 transition-all duration-300">
+              <div class="w-8 h-8 rounded-lg bg-[#FFD700]/20 flex items-center justify-center mb-2 mx-auto group-hover:bg-[#FFD700]/30 transition-colors duration-300">
+                <Tools class="h-4 w-4 text-[#FFD700]" />
+              </div>
               <div class="text-base font-semibold text-white">Same‑day</div>
-              <div>Tyres</div>
+              <div class="text-sm text-neutral-300">Tyres</div>
             </div>
-            <div class="rounded-md border border-neutral-800/70 bg-black/50 p-3 backdrop-blur">
-              <CheckCircle class="h-4 w-4" />
+            <div class="group relative rounded-xl border border-neutral-800/70 bg-gradient-to-br from-neutral-900/60 to-black/40 p-4 backdrop-blur-sm hover:border-green-500/50 hover:from-green-500/10 hover:to-green-900/20 transition-all duration-300">
+              <div class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center mb-2 mx-auto group-hover:bg-green-500/30 transition-colors duration-300">
+                <CheckCircle class="h-4 w-4 text-green-400" />
+              </div>
               <div class="text-base font-semibold text-white">Class 4 & 7</div>
-              <div>MOTs</div>
+              <div class="text-sm text-neutral-300">MOTs</div>
             </div>
-            <div class="rounded-md border border-neutral-800/70 bg-black/50 p-3 backdrop-blur">
-              <Star class="h-4 w-4" />
+            <div class="group relative rounded-xl border border-neutral-800/70 bg-gradient-to-br from-neutral-900/60 to-black/40 p-4 backdrop-blur-sm hover:border-amber-500/50 hover:from-amber-500/10 hover:to-amber-900/20 transition-all duration-300">
+              <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center mb-2 mx-auto group-hover:bg-amber-500/30 transition-colors duration-300">
+                <Star class="h-4 w-4 text-amber-400" />
+              </div>
               <div class="text-base font-semibold text-white">4.9/5</div>
-              <div>Reviews</div>
+              <div class="text-sm text-neutral-300">Reviews</div>
             </div>
           </div>
         </div>
@@ -348,12 +354,4 @@ onBeforeUnmount(() => {
     </div>
   </section>
 
-  <!-- Trust badges - keep this simple -->
-  <div class="bg-surface-alt border-y border-neutral-900">
-    <section class="mx-auto w-full max-w-7xl px-4 py-12">
-      <Reveal mode="up">
-        <TrustBadges />
-      </Reveal>
-    </section>
-  </div>
 </template>

@@ -7,6 +7,7 @@ import ProblemSection from '../../components/landing/ProblemSection.vue'
 import SolutionSection from '../../components/landing/SolutionSection.vue'
 import ServicesSection from '../../components/landing/ServicesSection.vue'
 import RegLookupSection from '../../components/landing/RegLookupSection.vue'
+import PaymentAssistSection from '../../components/landing/PaymentAssistSection.vue'
 import CTASection from '../../components/landing/CTASection.vue'
 </script>
 
@@ -31,6 +32,9 @@ import CTASection from '../../components/landing/CTASection.vue'
 
     <!-- Reg Lookup Section -->
     <RegLookupSection />
+
+    <!-- Payment Assist Section -->
+    <PaymentAssistSection />
 
     <!-- CTA Section -->
     <CTASection />
