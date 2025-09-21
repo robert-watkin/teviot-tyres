@@ -1,127 +1,69 @@
 <script setup lang="ts">
-import { h } from 'vue'
+import { Tools, Shield, CheckCircle } from '@iconoir/vue'
 import Reveal from '../Reveal.vue'
-
-// Custom icons using SVG (inspired by Phosphor style)
-const ZapIcon = () => h('svg', {
-  class: 'h-8 w-8 text-green-400',
-  fill: 'none',
-  stroke: 'currentColor',
-  viewBox: '0 0 24 24'
-}, [
-  h('polygon', {
-    points: '13,2 3,14 12,14 11,22 21,10 12,10 13,2',
-    'stroke-linecap': 'round',
-    'stroke-linejoin': 'round',
-    'stroke-width': '2'
-  })
-])
-
-const ShieldIcon = () => h('svg', {
-  class: 'h-8 w-8 text-green-400',
-  fill: 'none',
-  stroke: 'currentColor',
-  viewBox: '0 0 24 24'
-}, [
-  h('path', {
-    'stroke-linecap': 'round',
-    'stroke-linejoin': 'round',
-    'stroke-width': '2',
-    d: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'
-  })
-])
-
-const CheckCircleIcon = () => h('svg', {
-  class: 'h-8 w-8 text-green-400',
-  fill: 'none',
-  stroke: 'currentColor',
-  viewBox: '0 0 24 24'
-}, [
-  h('path', {
-    'stroke-linecap': 'round',
-    'stroke-linejoin': 'round',
-    'stroke-width': '2',
-    d: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
-  })
-])
 </script>
 
 <template>
   <!-- Solution Section -->
-  <section class="relative bg-gradient-to-br from-green-950/20 via-neutral-950 to-neutral-900 overflow-hidden">
-    <!-- Subtle Background Animation -->
-    <div class="absolute inset-0">
-      <!-- Gentle pulsing orbs -->
-      <div class="absolute top-20 left-10 w-32 h-32 bg-green-500/8 rounded-full blur-3xl animate-pulse-gentle"></div>
-      <div class="absolute bottom-20 right-20 w-24 h-24 bg-emerald-400/6 rounded-full blur-2xl animate-pulse-gentle" style="animation-delay: 2s;"></div>
-      <div class="absolute top-1/2 left-1/3 w-16 h-16 bg-green-600/4 rounded-full blur-xl animate-pulse-gentle" style="animation-delay: 4s;"></div>
-
-      <!-- Subtle floating particles -->
-      <div class="absolute top-1/4 right-1/4 w-2 h-2 bg-green-400/30 rounded-full animate-float-particle"></div>
-      <div class="absolute bottom-1/3 left-1/4 w-1 h-1 bg-emerald-300/40 rounded-full animate-float-particle" style="animation-delay: 3s;"></div>
-      <div class="absolute top-3/4 right-1/3 w-1.5 h-1.5 bg-green-500/25 rounded-full animate-float-particle" style="animation-delay: 6s;"></div>
+  <section class="relative overflow-hidden bg-gradient-to-b from-neutral-950 via-neutral-900 to-neutral-950">
+    <!-- Background Elements -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(255,215,0,0.3),transparent_30%)]"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_90%_80%,rgba(255,215,0,0.2),transparent_40%)]"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,215,0,0.1),transparent_60%)]"></div>
     </div>
 
-    <!-- Very subtle grid overlay -->
-    <div class="absolute inset-0 opacity-3">
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(34,197,94,0.02),transparent_70%)]"></div>
+    <!-- Subtle background shapes -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute top-20 left-10 w-32 h-32 bg-[#FFD700]/6 rounded-full blur-2xl"></div>
+      <div class="absolute top-40 right-20 w-24 h-24 bg-[#FFD700]/10 rounded-full blur-xl"></div>
+      <div class="absolute bottom-20 left-1/4 w-20 h-20 bg-[#FFD700]/8 rounded-full blur-lg"></div>
     </div>
 
     <div class="relative mx-auto w-full max-w-7xl px-4 py-24">
       <Reveal mode="up">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold mb-4">
-            <span class="text-green-400">How We Solve</span> Your Problems
+        <div class="text-center mb-20">
+          <h2 class="text-5xl font-bold mb-6">
+            <span class="text-[#FFD700]">How We Solve</span> Your Problems
           </h2>
-          <p class="text-xl text-neutral-300 max-w-3xl mx-auto">
+          <p class="text-xl text-neutral-300 max-w-3xl mx-auto leading-relaxed">
             Fast, reliable solutions that get you back on the road quickly and safely
           </p>
         </div>
       </Reveal>
 
+      <!-- Solution Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Same-Day Service -->
         <Reveal mode="up">
-          <div class="group relative rounded-2xl border border-green-800/30 bg-gradient-to-br from-green-900/20 to-neutral-900/80 p-8 backdrop-blur-sm hover:border-green-600/50 transition-all duration-300 hover:scale-105">
-            <div class="w-16 h-16 rounded-xl bg-green-600/20 flex items-center justify-center mb-6">
-            <component :is="ZapIcon" />
+          <div class="group relative rounded-3xl border border-neutral-800/50 bg-gradient-to-br from-neutral-900/80 to-neutral-950/80 p-8 backdrop-blur-sm hover:border-[#FFD700]/30 transition-all duration-500 hover:scale-105">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#FFD700]/20 to-amber-500/10 flex items-center justify-center border border-[#FFD700]/20 group-hover:border-[#FFD700]/40 transition-all duration-300 mb-6">
+              <Tools class="h-8 w-8 text-[#FFD700]" />
             </div>
-            <h3 class="text-xl font-semibold text-white mb-4">Same-Day Service</h3>
-            <ul class="space-y-2 text-neutral-300">
-              <li>• Emergency tyre repairs & replacements</li>
-              <li>• Most services completed same day</li>
-              <li>• No need to wait weeks for appointments</li>
-              <li>• Get back on the road fast</li>
-            </ul>
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-[#FFD700] transition-colors duration-300">Same-Day Service</h3>
+            <p class="text-neutral-300 mb-4 text-sm">Emergency repairs and replacements completed quickly without waiting weeks.</p>
           </div>
         </Reveal>
 
+        <!-- Expert Technicians -->
         <Reveal mode="up" :delay="120">
-          <div class="group relative rounded-2xl border border-green-800/30 bg-gradient-to-br from-green-900/20 to-neutral-900/80 p-8 backdrop-blur-sm hover:border-green-600/50 transition-all duration-300 hover:scale-105">
-            <div class="w-16 h-16 rounded-xl bg-green-600/20 flex items-center justify-center mb-6">
-            <component :is="ShieldIcon" />
+          <div class="group relative rounded-3xl border border-neutral-800/50 bg-gradient-to-br from-neutral-900/80 to-neutral-950/80 p-8 backdrop-blur-sm hover:border-[#FFD700]/30 transition-all duration-500 hover:scale-105">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#FFD700]/20 to-amber-500/10 flex items-center justify-center border border-[#FFD700]/20 group-hover:border-[#FFD700]/40 transition-all duration-300 mb-6">
+              <Shield class="h-8 w-8 text-[#FFD700]" />
             </div>
-            <h3 class="text-xl font-semibold text-white mb-4">Expert Technicians</h3>
-            <ul class="space-y-2 text-neutral-300">
-              <li>• DVSA-approved MOT testing</li>
-              <li>• Qualified and experienced mechanics</li>
-              <li>• Honest advice and transparent pricing</li>
-              <li>• All work fully guaranteed</li>
-            </ul>
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-[#FFD700] transition-colors duration-300">Expert Technicians</h3>
+            <p class="text-neutral-300 mb-4 text-sm">Qualified mechanics with honest advice, transparent pricing, and guaranteed work.</p>
           </div>
         </Reveal>
 
+        <!-- Local Convenience -->
         <Reveal mode="up" :delay="240">
-          <div class="group relative rounded-2xl border border-green-800/30 bg-gradient-to-br from-green-900/20 to-neutral-900/80 p-8 backdrop-blur-sm hover:border-green-600/50 transition-all duration-300 hover:scale-105">
-            <div class="w-16 h-16 rounded-xl bg-green-600/20 flex items-center justify-center mb-6">
-            <component :is="CheckCircleIcon" />
+          <div class="group relative rounded-3xl border border-neutral-800/50 bg-gradient-to-br from-neutral-900/80 to-neutral-950/80 p-8 backdrop-blur-sm hover:border-[#FFD700]/30 transition-all duration-500 hover:scale-105">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#FFD700]/20 to-amber-500/10 flex items-center justify-center border border-[#FFD700]/20 group-hover:border-[#FFD700]/40 transition-all duration-300 mb-6">
+              <CheckCircle class="h-8 w-8 text-[#FFD700]" />
             </div>
-            <h3 class="text-xl font-semibold text-white mb-4">Local Convenience</h3>
-            <ul class="space-y-2 text-neutral-300">
-              <li>• Hawick location - easy to find</li>
-              <li>• Competitive pricing, no hidden costs</li>
-              <li>• Friendly, personal service</li>
-              <li>• Support your local business</li>
-            </ul>
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-[#FFD700] transition-colors duration-300">Local Convenience</h3>
+            <p class="text-neutral-300 mb-4 text-sm">Easy-to-find location, competitive pricing, friendly service, and local business support.</p>
           </div>
         </Reveal>
       </div>

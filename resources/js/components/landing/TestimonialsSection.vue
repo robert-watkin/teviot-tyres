@@ -108,7 +108,7 @@ const testimonials = [
                 </div>
                 <div>
                   <div class="font-semibold text-white">{{ testimonial.name }}</div>
-                  <div class="text-sm text-neutral-400">Verified Customer</div>
+                  <div class="text-sm text-neutral-400">Customer</div>
                 </div>
               </div>
             </div>
@@ -130,7 +130,7 @@ const testimonials = [
                 </div>
                 <div>
                   <div class="font-semibold text-white">{{ testimonial.name }}</div>
-                  <div class="text-sm text-neutral-400">Verified Customer</div>
+                  <div class="text-sm text-neutral-400">Customer</div>
                 </div>
               </div>
             </div>
@@ -142,20 +142,20 @@ const testimonials = [
       <Reveal mode="up" :delay="300">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div class="space-y-2">
-            <div class="text-3xl font-bold text-[#FFD700]">4.9/5</div>
-            <div class="text-neutral-300">Average Rating</div>
+            <div class="text-3xl font-bold text-[#FFD700]">Highly Rated</div>
+            <div class="text-neutral-300">By local customers</div>
           </div>
           <div class="space-y-2">
-            <div class="text-3xl font-bold text-[#FFD700]">500+</div>
-            <div class="text-neutral-300">Happy Customers</div>
+            <div class="text-3xl font-bold text-[#FFD700]">Trusted</div>
+            <div class="text-neutral-300">For tyres & repairs</div>
           </div>
           <div class="space-y-2">
             <div class="text-3xl font-bold text-[#FFD700]">Same Day</div>
-            <div class="text-neutral-300">Service</div>
+            <div class="text-neutral-300">Service available</div>
           </div>
           <div class="space-y-2">
-            <div class="text-3xl font-bold text-[#FFD700]">15 Years</div>
-            <div class="text-neutral-300">Experience</div>
+            <div class="text-3xl font-bold text-[#FFD700]">Under new management</div>
+            <div class="text-neutral-300">Since April 2024</div>
           </div>
         </div>
       </Reveal>

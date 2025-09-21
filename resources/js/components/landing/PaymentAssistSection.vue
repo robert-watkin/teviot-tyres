@@ -46,9 +46,9 @@ const phone = computed(() => site.value.phone || '01450 374875')
         <Reveal mode="up">
           <div class="space-y-6">
             <div class="space-y-4">
-              <h3 class="text-2xl font-bold text-white mb-3">Flexible Payment Solutions</h3>
+              <h3 class="text-2xl font-bold text-white mb-3">Flexible Payment Options</h3>
               <p class="text-base text-neutral-300 leading-relaxed">
-                Don't let unexpected repair costs catch you off guard. With Payment Assist, you can spread the cost of your vehicle maintenance over 3, 6, or 12 months.
+                Don't let unexpected repair costs catch you off guard. With Payment Assist, you can spread the cost over 4 equal monthly payments at 0% interest. Subject to status; soft credit search.
               </p>
             </div>
 
@@ -69,8 +69,8 @@ const phone = computed(() => site.value.phone || '01450 374875')
                   <Settings class="h-5 w-5 text-green-400" />
                 </div>
                 <div>
-                  <h4 class="text-base font-semibold text-white mb-1">Flexible Terms</h4>
-                  <p class="text-sm text-neutral-300">Choose 3, 6, or 12 months</p>
+                  <h4 class="text-base font-semibold text-white mb-1">Simple Terms</h4>
+                  <p class="text-sm text-neutral-300">4 equal monthly payments</p>
                 </div>
               </div>
 
@@ -102,7 +102,7 @@ const phone = computed(() => site.value.phone || '01450 374875')
 
               <div class="space-y-3">
                 <a
-                  :href="`tel:${phone.replace(/\/s+/g, '')}`"
+                  :href="`tel:${phone.replace(/\s+/g, '')}`"
                   class="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 px-6 py-3 text-base font-bold text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 w-full justify-center"
                 >
                   <Phone class="h-4 w-4" />
@@ -112,7 +112,7 @@ const phone = computed(() => site.value.phone || '01450 374875')
                 <div class="text-xs text-neutral-400 text-center">
                   <p>✓ No hidden fees</p>
                   <p>✓ Instant decision</p>
-                  <p>✓ APR 19.9%</p>
+                  <p>✓ 0% interest over 4 payments</p>
                 </div>
               </div>
             </div>
@@ -128,16 +128,16 @@ const phone = computed(() => site.value.phone || '01450 374875')
               <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-3">
                 <CheckCircle class="h-6 w-6 text-green-400" />
               </div>
-              <h4 class="text-base font-semibold text-white mb-1">No Credit Checks</h4>
-              <p class="text-xs text-neutral-300">Soft search only</p>
+              <h4 class="text-base font-semibold text-white mb-1">Soft Credit Search</h4>
+              <p class="text-xs text-neutral-300">Subject to status</p>
             </div>
 
             <div>
               <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-3">
                 <Settings class="h-4 w-4 text-green-400" />
               </div>
-              <h4 class="text-base font-semibold text-white mb-1">Same Day Approval</h4>
-              <p class="text-xs text-neutral-300">Instant decisions</p>
+              <h4 class="text-base font-semibold text-white mb-1">Quick Approval</h4>
+              <p class="text-xs text-neutral-300">Instant decision</p>
             </div>
 
             <div>

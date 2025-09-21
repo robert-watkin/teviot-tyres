@@ -255,9 +255,9 @@ onBeforeUnmount(() => {
           <div
             class="mb-5 inline-flex items-center gap-3 rounded-full border border-neutral-800/70 bg-black/50 px-3 py-1 text-xs text-neutral-300 backdrop-blur">
             <AppLogoIcon class="size-4 text-[#FFD700]" />
-            <span class="font-medium">Fast, friendly & DVSA‑approved</span>
-            <span class="hidden rounded-sm bg-[#FFD700]/20 px-1.5 py-0.5 text-[#FFD700] md:inline">FREE Tyre
-              Check</span>
+            <span class="font-medium">Fast, friendly local garage</span>
+            <span class="hidden rounded-sm bg-[#FFD700]/20 px-1.5 py-0.5 text-[#FFD700] md:inline">Complimentary tyre safety
+              check — ask in store</span>
           </div>
 
           <!-- Headline -->
@@ -265,7 +265,7 @@ onBeforeUnmount(() => {
             <span class="text-[#FFD700]">Your trusted</span> local Tyre & MOT experts in Hawick
           </h1>
           <p class="mt-4 max-w-[65ch] text-lg text-neutral-200">
-            Same‑day tyres and Class 4 & 7 MOTs with honest advice and fair pricing. Servicing, diagnostics and
+            Same‑day tyres and MOT preparation with honest advice and fair pricing. Servicing, diagnostics and
             batteries — all under one roof.
           </p>
 
@@ -301,19 +301,19 @@ onBeforeUnmount(() => {
               <div class="text-base font-semibold text-white">Same‑day</div>
               <div class="text-sm text-neutral-300">Tyres</div>
             </div>
-            <div class="group relative rounded-xl border border-neutral-800/70 bg-gradient-to-br from-neutral-900/60 to-black/40 p-4 backdrop-blur-sm hover:border-green-500/50 hover:from-green-500/10 hover:to-green-900/20 transition-all duration-300">
-              <div class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center mb-2 mx-auto group-hover:bg-green-500/30 transition-colors duration-300">
-                <CheckCircle class="h-4 w-4 text-green-400" />
+            <div class="group relative rounded-xl border border-neutral-800/70 bg-gradient-to-br from-neutral-900/60 to-black/40 p-4 backdrop-blur-sm hover:border-[#FFD700]/50 hover:from-[#FFD700]/10 hover:to-amber-900/20 transition-all duration-300">
+              <div class="w-8 h-8 rounded-lg bg-[#FFD700]/20 flex items-center justify-center mb-2 mx-auto group-hover:bg-[#FFD700]/30 transition-colors duration-300">
+                <CheckCircle class="h-4 w-4 text-[#FFD700]" />
               </div>
-              <div class="text-base font-semibold text-white">Class 4 & 7</div>
-              <div class="text-sm text-neutral-300">MOTs</div>
+              <div class="text-base font-semibold text-white">MOT</div>
+              <div class="text-sm text-neutral-300">Preparation</div>
             </div>
-            <div class="group relative rounded-xl border border-neutral-800/70 bg-gradient-to-br from-neutral-900/60 to-black/40 p-4 backdrop-blur-sm hover:border-amber-500/50 hover:from-amber-500/10 hover:to-amber-900/20 transition-all duration-300">
-              <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center mb-2 mx-auto group-hover:bg-amber-500/30 transition-colors duration-300">
-                <Star class="h-4 w-4 text-amber-400" />
+            <div class="group relative rounded-xl border border-neutral-800/70 bg-gradient-to-br from-neutral-900/60 to-black/40 p-4 backdrop-blur-sm hover:border-[#FFD700]/50 hover:from-[#FFD700]/10 hover:to-amber-900/20 transition-all duration-300">
+              <div class="w-8 h-8 rounded-lg bg-[#FFD700]/20 flex items-center justify-center mb-2 mx-auto group-hover:bg-[#FFD700]/30 transition-colors duration-300">
+                <Star class="h-4 w-4 text-[#FFD700]" />
               </div>
-              <div class="text-base font-semibold text-white">4.9/5</div>
-              <div class="text-sm text-neutral-300">Reviews</div>
+              <div class="text-base font-semibold text-white">100% Recommend</div>
+              <div class="text-sm text-neutral-300">Facebook</div>
             </div>
           </div>
         </div>

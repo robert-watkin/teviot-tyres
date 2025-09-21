@@ -22,7 +22,7 @@ const phone = computed(() => site.value.phone || '01450 374875')
             <span class="text-xl font-bold text-white">Teviot Tyres</span>
           </div>
           <p class="text-neutral-300 mb-4 max-w-md">
-            Your trusted local garage in Hawick. Same-day tyres, MOT testing, and expert automotive repairs with honest advice and fair pricing.
+            Your trusted local garage in Hawick. Same-day tyres, MOT preparation, and expert automotive repairs with honest advice and fair pricing.
           </p>
           <div class="flex items-center gap-4 text-sm text-neutral-400">
             <span>Mon–Fri: 9:00–17:00</span>
@@ -35,7 +35,7 @@ const phone = computed(() => site.value.phone || '01450 374875')
           <h3 class="text-lg font-semibold text-white mb-4">Services</h3>
           <ul class="space-y-2 text-neutral-300">
             <li><Link href="/services#tyres" class="hover:text-[#FFD700] transition-colors">Tyres & Fitting</Link></li>
-            <li><Link href="/services#mot-class-4-7" class="hover:text-[#FFD700] transition-colors">MOT Testing</Link></li>
+            <li><Link href="/services#mot-prep" class="hover:text-[#FFD700] transition-colors">MOT Preparation</Link></li>
             <li><Link href="/services#servicing" class="hover:text-[#FFD700] transition-colors">Vehicle Servicing</Link></li>
             <li><Link href="/services#diagnostics" class="hover:text-[#FFD700] transition-colors">Diagnostics</Link></li>
           </ul>
@@ -48,6 +48,13 @@ const phone = computed(() => site.value.phone || '01450 374875')
             <li class="flex items-center gap-2">
               <Phone class="h-4 w-4 text-[#FFD700]" />
               <a :href="`tel:${phone.replace(/\s+/g, '')}`" class="hover:text-[#FFD700] transition-colors">{{ phone }}</a>
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 text-[#FFD700]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" />
+                <path d="m22 6-10 7L2 6" />
+              </svg>
+              <a href="mailto:teviottyres@outlook.com" class="hover:text-[#FFD700] transition-colors">teviottyres@outlook.com</a>
             </li>
             <li class="flex items-center gap-2">
               <MapPin class="h-4 w-4 text-[#FFD700]" />

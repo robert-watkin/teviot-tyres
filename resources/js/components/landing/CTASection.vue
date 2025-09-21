@@ -94,7 +94,7 @@ const phone = computed(() => site.value.phone || '01450 374875')
                 <CheckCircle class="h-8 w-8 text-[#FFD700]" />
               </div>
               <h3 class="text-lg font-semibold text-white mb-2">Expert Technicians</h3>
-              <p class="text-neutral-300">DVSA-approved testing and repairs</p>
+              <p class="text-neutral-300">Quality testing and repairs</p>
             </div>
           </div>
         </div>

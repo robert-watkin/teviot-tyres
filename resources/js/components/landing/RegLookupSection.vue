@@ -6,15 +6,15 @@ import Reveal from '../Reveal.vue'
 
 <template>
   <!-- Reg Lookup Section -->
-  <section class="relative bg-gradient-to-br from-blue-950/20 via-neutral-950 to-neutral-900">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(59,130,246,0.1),transparent_50%)]"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(59,130,246,0.05),transparent_50%)]"></div>
+  <section class="relative bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(255,215,0,0.1),transparent_50%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,215,0,0.05),transparent_50%)]"></div>
 
     <div class="relative mx-auto w-full max-w-7xl px-4 py-24">
       <Reveal mode="up">
         <div class="text-center mb-16">
           <h2 class="text-4xl font-bold mb-4">
-            <span class="text-blue-400">Quick Vehicle Check</span>
+            <span class="text-[#FFD700]">Quick Vehicle Check</span>
           </h2>
           <p class="text-xl text-neutral-300 max-w-3xl mx-auto">
             Enter your registration for instant vehicle information. Create an account to save your vehicles for future reference.
@@ -24,7 +24,7 @@ import Reveal from '../Reveal.vue'
 
       <div class="max-w-2xl mx-auto">
         <Reveal mode="up" :delay="120">
-          <div class="relative rounded-2xl border border-blue-800/30 bg-gradient-to-br from-blue-900/20 to-neutral-900/80 p-8 backdrop-blur-sm">
+          <div class="relative rounded-2xl border border-neutral-700/30 bg-gradient-to-br from-neutral-800/20 to-neutral-900/80 p-8 backdrop-blur-sm">
             <form action="/reg-lookup" method="get" class="space-y-6" aria-label="Vehicle registration lookup">
               <div>
                 <label for="hero-reg" class="block text-sm font-medium text-neutral-300 mb-2">
@@ -36,14 +36,14 @@ import Reveal from '../Reveal.vue'
                   inputmode="text"
                   autocomplete="on"
                   placeholder="e.g. AB12 CDE"
-                  class="w-full rounded-xl border border-neutral-700 bg-neutral-900/50 px-4 py-3 text-white placeholder-neutral-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 backdrop-blur-sm"
+                  class="w-full rounded-xl border border-neutral-700 bg-neutral-900/50 px-4 py-3 text-white placeholder-neutral-400 focus:border-[#FFD700] focus:outline-none focus:ring-2 focus:ring-[#FFD700]/20 backdrop-blur-sm"
                   required
                 />
               </div>
 
               <button
                 type="submit"
-                class="w-full rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-3 text-white font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
+                class="w-full rounded-xl bg-gradient-to-r from-[#FFD700] to-yellow-500 px-6 py-3 text-white font-semibold hover:from-yellow-500 hover:to-yellow-600 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
               >
                 <span>Search Vehicle</span>
                 <ArrowRight class="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
@@ -52,10 +52,10 @@ import Reveal from '../Reveal.vue'
 
             <div class="mt-6 pt-6 border-t border-neutral-700">
               <div class="flex items-start gap-3 text-sm text-neutral-400">
-                <Shield class="h-4 w-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                <Shield class="h-4 w-4 text-[#FFD700] mt-0.5 flex-shrink-0" />
                 <div>
                   <p class="mb-2">Powered by DVLA Vehicle Enquiry Service</p>
-                  <p>By using this lookup you agree to our <Link href="/privacy" class="text-blue-400 hover:text-blue-300 underline">privacy policy</Link></p>
+                  <p>By using this lookup you agree to our <Link href="/privacy" class="text-[#FFD700] hover:text-yellow-400 underline">privacy policy</Link></p>
                 </div>
               </div>
             </div>
