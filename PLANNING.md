@@ -339,11 +339,14 @@ A modern, dark-themed automotive service website for Teviot Tyres, featuring use
 - [x] Two-factor authentication
 - [ ] Profile management (In Progress)
 
-### Phase 3: Vehicle Management
-- [ ] Vehicle model & migrations
-- [ ] Registration lookup API integration
-- [ ] Save vehicles to profile
-- [ ] Vehicle CRUD operations
+### Phase 3: Vehicle Management ✅ (Completed)
+- [x] Vehicle model & migrations
+- [x] Vehicle CRUD operations
+- [x] Vehicle listing page
+- [x] Add/Edit vehicle forms
+- [x] Delete vehicle functionality
+- [ ] Registration lookup API integration (Pending - API provider needed)
+- [ ] Save vehicles from reg lookup
 
 ### Phase 4: Admin System
 - [ ] Admin middleware & guards
