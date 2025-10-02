@@ -7,15 +7,15 @@ import { ShieldCheck, BadgeCheck, Handshake } from 'lucide-vue-next';
     <div class="flex items-center gap-3 rounded-lg border border-neutral-800 bg-neutral-950 p-4">
       <ShieldCheck class="h-5 w-5 text-[#FFD700]" />
       <div>
-        <p class="text-sm font-semibold text-white">DVSA‑approved testing</p>
-        <p class="text-xs text-neutral-400">Class 4 & 7 MOTs</p>
+        <p class="text-sm font-semibold text-white">MOT preparation & checks</p>
+        <p class="text-xs text-neutral-400">Repairs and advice</p>
       </div>
     </div>
     <div class="flex items-center gap-3 rounded-lg border border-neutral-800 bg-neutral-950 p-4">
       <BadgeCheck class="h-5 w-5 text-[#FFD700]" />
       <div>
-        <p class="text-sm font-semibold text-white">FREE Tyre Check</p>
-        <p class="text-xs text-neutral-400">Safety first, no obligation</p>
+        <p class="text-sm font-semibold text-white">Complimentary tyre safety check</p>
+        <p class="text-xs text-neutral-400">Ask in store</p>
       </div>
     </div>
     <div class="flex items-center gap-3 rounded-lg border border-neutral-800 bg-neutral-950 p-4">
