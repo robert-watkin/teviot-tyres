@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3'
 import { Tools, ArrowRight } from '@iconoir/vue'
+import Reveal from '../../Reveal.vue'
 
 interface Props {
   href?: string

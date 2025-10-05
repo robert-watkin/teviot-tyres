@@ -1,5 +1,16 @@
 declare module '@iconoir/vue' {
   import type { DefineComponent } from 'vue'
+  
+  // IconoirProvider component
+  export const IconoirProvider: DefineComponent<{
+    iconProps?: {
+      strokeWidth?: number
+      width?: string | number
+      height?: string | number
+      color?: string
+    }
+  }, {}, any>
+  
   // Minimal type shims for the Iconoir Vue components we use
   export const Phone: DefineComponent<{}, {}, any>
   export const MapPin: DefineComponent<{}, {}, any>

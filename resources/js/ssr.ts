@@ -1,3 +1,4 @@
+import { IconoirProvider } from '@iconoir/vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import createServer from '@inertiajs/vue3/server';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
@@ -18,7 +19,14 @@ createServer(
                     import.meta.glob<DefineComponent>('./pages/**/*.vue'),
                 ),
             setup: ({ App, props, plugin }) =>
-                createSSRApp({ render: () => h(App, props) }).use(plugin),
+                createSSRApp({
+                    render: () =>
+                        h(
+                            IconoirProvider,
+                            { iconProps: { strokeWidth: 1.5 } },
+                            () => h(App, props),
+                        ),
+                }).use(plugin),
         }),
     { cluster: true },
 );
