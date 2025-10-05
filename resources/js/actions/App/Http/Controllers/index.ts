@@ -1,10 +1,10 @@
 import Auth from './Auth'
-import RegLookupController from './RegLookupController'
+import VehicleLookupController from './VehicleLookupController'
 import Settings from './Settings'
 
 const Controllers = {
     Auth: Object.assign(Auth, Auth),
-    RegLookupController: Object.assign(RegLookupController, RegLookupController),
+    VehicleLookupController: Object.assign(VehicleLookupController, VehicleLookupController),
     Settings: Object.assign(Settings, Settings),
 }
 

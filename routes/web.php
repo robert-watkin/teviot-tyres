@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\RegLookupController;
+use App\Http\Controllers\VehicleLookupController;
 
 Route::get('/', function () {
     return Inertia::render('public/Landing');
@@ -17,7 +17,8 @@ Route::get('services', function () {
     return Inertia::render('public/Services');
 })->name('services');
 
-Route::get('reg-lookup', RegLookupController::class)->name('reg.lookup');
+Route::get('reg-lookup', [VehicleLookupController::class, 'index'])->name('reg.lookup');
+Route::post('reg-lookup', [VehicleLookupController::class, 'lookup'])->name('reg.lookup.search');
 
 Route::get('contact', function () {
     return Inertia::render('public/Contact');

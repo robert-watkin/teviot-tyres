@@ -37,10 +37,8 @@ return [
 
     // DVLA Vehicle Enquiry Service
     'dvla' => [
-        // API key for Vehicle Enquiry Service (VES)
-        'ves_api_key' => env('DVLA_VES_API_KEY'),
-        // Base URL for VES; use production by default
-        'base_url' => env('DVLA_VES_BASE_URL', 'https://driver-vehicle-licensing.api.gov.uk'),
+        'test_api_key' => env('DVLA_OPEN_DATA_TEST_API_KEY'),
+        'live_api_key' => env('DVLA_OPEN_DATA_LIVE_API_KEY'),
     ],
 
 ];
