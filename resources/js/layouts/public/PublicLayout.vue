@@ -138,7 +138,7 @@ function backToTop() {
           <h3 class="mb-3 text-sm font-semibold uppercase tracking-wider text-neutral-400">Services</h3>
           <ul class="space-y-2 text-sm">
             <li><Link href="/services#tyres">Tyres</Link></li>
-            <li><Link href="/services#mot-class-4-7">Class 4 & 7 MOTs</Link></li>
+            <li><Link href="/services#mot-class-4">Class 4 MOTs</Link></li>
             <li><Link href="/services#mot-prep">MOT Preparation</Link></li>
             <li><Link href="/services#servicing">Servicing</Link></li>
             <li><Link href="/services#diagnostics">Diagnostics</Link></li>
