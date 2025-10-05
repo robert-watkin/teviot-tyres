@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import PublicLayout from '@/layouts/public/PublicLayout.vue';
 import { Head, usePage, useForm } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import Reveal from '@/components/Reveal.vue';
 import { CheckCircle, Shield, CreditCard, Phone } from '@iconoir/vue';
 import reg from '@/routes/reg';
@@ -51,6 +51,25 @@ const formatEngineSize = (cc?: number) => {
   if (!cc) return 'N/A';
   return `${cc}cc (${(cc / 1000).toFixed(1)}L)`;
 };
+
+// Handle query parameters from hero form
+onMounted(() => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const registration = urlParams.get('registration');
+  const autoSubmit = urlParams.get('autoSubmit');
+  
+  if (registration) {
+    form.registration = registration;
+    
+    // Auto-submit if flag is set
+    if (autoSubmit === '1' && !props.vehicle) {
+      // Small delay to ensure UI is ready
+      setTimeout(() => {
+        submit();
+      }, 100);
+    }
+  }
+});
 </script>
 
 <template>

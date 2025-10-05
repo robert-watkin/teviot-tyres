@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
 import { Phone, MapPin, Tools, CheckCircle, Star } from '@iconoir/vue'
-import { usePage, Link } from '@inertiajs/vue3'
+import { usePage, Link, router } from '@inertiajs/vue3'
 import { Head } from '@inertiajs/vue3'
 import Reveal from '../Reveal.vue'
 import TrustBadges from '../TrustBadges.vue'
 import AppLogoIcon from '../AppLogoIcon.vue'
+import reg from '@/routes/reg'
 
 // Replaced inline SVG icons with Iconoir components
 
@@ -62,6 +63,17 @@ const preloadNextVideo = () => {
 const page = usePage()
 const site = computed(() => (page.props as any).site || {})
 const phone = computed(() => site.value.phone || '01450 374875')
+
+// Hero reg lookup form
+const heroReg = ref('')
+const handleHeroRegLookup = (e: Event) => {
+  e.preventDefault()
+  if (heroReg.value.trim()) {
+    // Navigate to reg lookup page with the registration and autoSubmit flag as query params
+    const url = reg.lookup.url() + `?registration=${encodeURIComponent(heroReg.value.trim())}&autoSubmit=1`
+    router.visit(url)
+  }
+}
 
 const currentImageIndex = ref(0)
 let imageCycleInterval: number | null = null
@@ -295,12 +307,20 @@ onBeforeUnmount(() => {
           <h2 class="text-lg font-semibold text-[#FFD700]">Quick Reg Lookup</h2>
           <p class="mb-4 mt-1 text-sm text-neutral-300">Enter your reg for instant vehicle info. Create an account
             (soon) to save it.</p>
-          <form action="/reg-lookup" method="get" class="flex w-full gap-3" aria-label="Registration lookup">
+          <form @submit="handleHeroRegLookup" class="flex w-full gap-3" aria-label="Registration lookup">
             <label for="hero-reg" class="sr-only">Registration number</label>
-            <input id="hero-reg" name="reg" inputmode="text" autocomplete="on" placeholder="e.g. AB12 CDE"
-              class="flex-1 rounded-md border border-neutral-800 bg-black/70 px-3 py-2 text-sm text-white outline-none ring-2 ring-transparent placeholder:text-neutral-400 focus:ring-neutral-700" />
+            <input 
+              id="hero-reg" 
+              v-model="heroReg"
+              type="text" 
+              inputmode="text" 
+              autocomplete="on" 
+              placeholder="e.g. AB12 CDE"
+              maxlength="8"
+              class="flex-1 rounded-md border border-neutral-800 bg-black/70 px-3 py-2 text-sm text-white uppercase outline-none ring-2 ring-transparent placeholder:text-neutral-400 focus:ring-neutral-700" 
+            />
             <button type="submit"
-              class="rounded-md bg-[#FFD700] px-4 py-2 text-sm font-semibold text-black hover:brightness-95 shadow-md">Search</button>
+              class="rounded-md bg-[#FFD700] px-4 py-2 text-sm font-semibold text-black hover:brightness-95 shadow-md transition-all hover:scale-105">Search</button>
           </form>
           <p class="mt-3 text-xs text-neutral-400">Powered by DVLA Vehicle Enquiry Service.</p>
           <p class="mt-2 text-xs text-neutral-500">By using this lookup you agree to our
