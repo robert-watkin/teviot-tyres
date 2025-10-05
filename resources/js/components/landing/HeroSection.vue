@@ -28,8 +28,8 @@ const updateVideoSource = () => {
   if (videoElement && useVideos.value) {
     // src is bound reactively; just ensure the player loads and plays
     ;(videoElement as HTMLVideoElement).load()
-    ;(videoElement as HTMLVideoElement).play().catch((e) => {
-      console.warn('Autoplay prevented, attempting muted play', e)
+    ;(videoElement as HTMLVideoElement).play().catch(() => {
+      // Autoplay prevented, try muted
       ;(videoElement as HTMLVideoElement).muted = true
       ;(videoElement as HTMLVideoElement).play().catch(() => {})
     })
@@ -103,7 +103,6 @@ const resolvedHeroVideo = computed(() => {
 // Watch for video index changes and update video source
 watch(currentImageIndex, () => {
   if (useVideos.value) {
-    console.log(`Video index changed to ${currentImageIndex.value}`)
     updateVideoSource()
   }
 })
@@ -116,8 +115,6 @@ watch(resolvedHeroVideo, () => {
 // Watch for useVideos changes to switch between videos and images
 watch(useVideos, (newValue) => {
   if (newValue && videoElement) {
-    // Switching to videos
-    console.log('Switching to video mode:', resolvedHeroVideo.value)
     updateVideoSource()
   }
 })
@@ -139,9 +136,7 @@ onMounted(async () => {
     preloadNextVideo()
 
     setTimeout(() => {
-      const oldIndex = currentImageIndex.value
       currentImageIndex.value = (currentImageIndex.value + 1) % 5
-      console.log(`Switching from video ${oldIndex} to video ${currentImageIndex.value}`)
       // Update video source if videos are enabled
       if (useVideos.value) {
         updateVideoSource()
@@ -155,31 +150,9 @@ onMounted(async () => {
   // Load the first video immediately
   setTimeout(() => {
     if (useVideos.value && videoElement) {
-      console.log('Loading first video:', resolvedHeroVideo.value)
       updateVideoSource()
     }
   }, 500)
-
-  // Test video file accessibility
-  setTimeout(() => {
-    const heroVideos = [
-      '/videos/hero-video-1.mp4', // Person repairing automobile
-      '/videos/hero-video-2.mp4', // Updated video
-      '/videos/hero-video-3.mp4', // Mechanic raising an engine
-      '/videos/hero-video-4.mp4', // Moving wheels of car on lifter
-      '/videos/hero-video-5.mp4', // Additional automotive work
-    ]
-
-    heroVideos.forEach((videoPath, index) => {
-      fetch(videoPath)
-        .then((response) => {
-          console.log(`Video ${index + 1} (${videoPath}) is accessible:`, response.ok)
-        })
-        .catch((error) => {
-          console.error(`Video ${index + 1} (${videoPath}) failed to load:`, error)
-        })
-    })
-  }, 200)
 })
 
 onBeforeUnmount(() => {
@@ -189,11 +162,8 @@ onBeforeUnmount(() => {
 })
 
 const onVideoEnded = () => {
-  console.log('Video ended, cycling to next video')
   // Cycle to next video when current one ends
-  const oldIndex = currentImageIndex.value
   currentImageIndex.value = (currentImageIndex.value + 1) % 5
-  console.log(`Switching from video ${oldIndex} to video ${currentImageIndex.value}`)
 
   // Update video source
   if (videoElement && useVideos.value) {
