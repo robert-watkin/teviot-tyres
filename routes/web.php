@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VehicleLookupController;
 
 Route::get('/', function () {
@@ -43,10 +44,21 @@ Route::get('privacy', function () {
     return Inertia::render('public/Privacy');
 })->name('privacy');
 
-// Admin area (restrict access; TODO: add authorization/roles)
-Route::get('admin', function () {
-    return Inertia::render('admin/Index');
-})->middleware(['auth', 'verified'])->name('admin.index');
+// Admin area (admin and owner only)
+Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::get('/users', [AdminController::class, 'users'])->name('users');
+    Route::get('/vehicles', [AdminController::class, 'vehicles'])->name('vehicles');
+    Route::delete('/users/{user}', [AdminController::class, 'deleteUser'])->name('users.delete');
+    Route::delete('/vehicles/{vehicle}', [AdminController::class, 'deleteVehicle'])->name('vehicles.delete');
+    
+    // Owner only routes
+    Route::middleware('owner')->group(function () {
+        Route::get('/manage-admins', [AdminController::class, 'manageAdmins'])->name('manage-admins');
+        Route::post('/users/{user}/promote', [AdminController::class, 'promoteToAdmin'])->name('users.promote');
+        Route::post('/users/{user}/demote', [AdminController::class, 'demoteToUser'])->name('users.demote');
+    });
+});
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -54,5 +55,37 @@ class User extends Authenticatable
     public function vehicles(): HasMany
     {
         return $this->hasMany(Vehicle::class);
+    }
+
+    /**
+     * Check if user is a standard user
+     */
+    public function isUser(): bool
+    {
+        return $this->role === 'user';
+    }
+
+    /**
+     * Check if user is an admin or owner
+     */
+    public function isAdmin(): bool
+    {
+        return in_array($this->role, ['admin', 'owner']);
+    }
+
+    /**
+     * Check if user is the owner
+     */
+    public function isOwner(): bool
+    {
+        return $this->role === 'owner';
+    }
+
+    /**
+     * Check if user can manage roles (owner only)
+     */
+    public function canManageRoles(): bool
+    {
+        return $this->isOwner();
     }
 }
