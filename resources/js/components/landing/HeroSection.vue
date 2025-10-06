@@ -40,13 +40,11 @@ const updateVideoSource = () => {
 // Preload next video
 const preloadNextVideo = () => {
   const currentIndex = currentImageIndex.value
-  const nextIndex = (currentIndex + 1) % 5
+  const nextIndex = (currentIndex + 1) % 3
   const heroVideos = [
     '/videos/hero-video-1.mp4', // Person repairing automobile
     '/videos/hero-video-2.mp4', // Updated video
     '/videos/hero-video-3.mp4', // Mechanic raising an engine
-    '/videos/hero-video-4.mp4', // Moving wheels of car on lifter
-    '/videos/hero-video-5.mp4', // Additional automotive work
   ]
 
   const nextVideo = heroVideos[nextIndex]
@@ -94,8 +92,6 @@ const heroVideo = computed(() => {
     '/videos/hero-video-1.mp4', // Person repairing automobile
     '/videos/hero-video-2.mp4', // Updated video
     '/videos/hero-video-3.mp4', // Mechanic raising an engine
-    '/videos/hero-video-4.mp4', // Moving wheels of car on lifter
-    '/videos/hero-video-5.mp4', // Additional automotive work
   ]
 
   const envUrl = (import.meta.env.VITE_HERO_VIDEO_URL as string | undefined)
@@ -148,7 +144,7 @@ onMounted(async () => {
     preloadNextVideo()
 
     setTimeout(() => {
-      currentImageIndex.value = (currentImageIndex.value + 1) % 5
+      currentImageIndex.value = (currentImageIndex.value + 1) % 3
       // Update video source if videos are enabled
       if (useVideos.value) {
         updateVideoSource()
@@ -175,7 +171,7 @@ onBeforeUnmount(() => {
 
 const onVideoEnded = () => {
   // Cycle to next video when current one ends
-  currentImageIndex.value = (currentImageIndex.value + 1) % 5
+  currentImageIndex.value = (currentImageIndex.value + 1) % 3
 
   // Update video source
   if (videoElement && useVideos.value) {

@@ -2,7 +2,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
 import lookupAe55f1 from './lookup'
 /**
 * @see \App\Http\Controllers\VehicleLookupController::lookup
-* @see app/Http/Controllers/VehicleLookupController.php:18
+* @see app/Http/Controllers/VehicleLookupController.php:19
 * @route '/reg-lookup'
 */
 export const lookup = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -17,7 +17,7 @@ lookup.definition = {
 
 /**
 * @see \App\Http\Controllers\VehicleLookupController::lookup
-* @see app/Http/Controllers/VehicleLookupController.php:18
+* @see app/Http/Controllers/VehicleLookupController.php:19
 * @route '/reg-lookup'
 */
 lookup.url = (options?: RouteQueryOptions) => {
@@ -26,7 +26,7 @@ lookup.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\VehicleLookupController::lookup
-* @see app/Http/Controllers/VehicleLookupController.php:18
+* @see app/Http/Controllers/VehicleLookupController.php:19
 * @route '/reg-lookup'
 */
 lookup.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -36,7 +36,7 @@ lookup.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\VehicleLookupController::lookup
-* @see app/Http/Controllers/VehicleLookupController.php:18
+* @see app/Http/Controllers/VehicleLookupController.php:19
 * @route '/reg-lookup'
 */
 lookup.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -46,7 +46,7 @@ lookup.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\VehicleLookupController::lookup
-* @see app/Http/Controllers/VehicleLookupController.php:18
+* @see app/Http/Controllers/VehicleLookupController.php:19
 * @route '/reg-lookup'
 */
 const lookupForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -56,7 +56,7 @@ const lookupForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => 
 
 /**
 * @see \App\Http\Controllers\VehicleLookupController::lookup
-* @see app/Http/Controllers/VehicleLookupController.php:18
+* @see app/Http/Controllers/VehicleLookupController.php:19
 * @route '/reg-lookup'
 */
 lookupForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -66,7 +66,7 @@ lookupForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\VehicleLookupController::lookup
-* @see app/Http/Controllers/VehicleLookupController.php:18
+* @see app/Http/Controllers/VehicleLookupController.php:19
 * @route '/reg-lookup'
 */
 lookupForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import PublicLayout from '@/layouts/public/PublicLayout.vue';
-import { Head, usePage, useForm } from '@inertiajs/vue3';
-import { computed, onMounted } from 'vue';
+import { Head, usePage, useForm, router } from '@inertiajs/vue3';
+import { computed, onMounted, ref } from 'vue';
 import Reveal from '@/components/Reveal.vue';
 import { CheckCircle, Shield, CreditCard, Phone } from '@iconoir/vue';
 import reg from '@/routes/reg';
@@ -25,11 +25,13 @@ interface VehicleData {
 interface Props {
   vehicle?: VehicleData | null;
   searched?: boolean;
+  isSaved?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   vehicle: null,
   searched: false,
+  isSaved: false,
 });
 
 const page = usePage();
@@ -50,6 +52,23 @@ const submit = () => {
 const formatEngineSize = (cc?: number) => {
   if (!cc) return 'N/A';
   return `${cc}cc (${(cc / 1000).toFixed(1)}L)`;
+};
+
+const saving = ref(false);
+
+const saveVehicle = () => {
+  if (!props.vehicle) return;
+  
+  saving.value = true;
+  router.post('/vehicles', {
+    registration: props.vehicle.registration,
+    vehicle_data: props.vehicle as any,
+  }, {
+    preserveScroll: true,
+    onFinish: () => {
+      saving.value = false;
+    },
+  });
 };
 
 // Handle query parameters from hero form
@@ -245,9 +264,22 @@ onMounted(() => {
             </div>
           </div>
 
-          <!-- Save to Account (if logged in) -->
-          <div v-if="isAuthed" class="mt-3 rounded-lg border border-neutral-800 bg-neutral-900/50 p-3 text-xs text-neutral-400">
-            <p>✓ You're logged in. Vehicle saving feature coming soon!</p>
+          <!-- Save to Account -->
+          <div v-if="isAuthed" class="mt-3 rounded-lg border border-neutral-800 bg-neutral-900/50 p-3">
+            <div v-if="props.isSaved" class="flex items-center gap-2 text-sm text-green-400">
+              <CheckCircle class="h-4 w-4" />
+              <span>Vehicle saved to your account</span>
+            </div>
+            <div v-else class="flex items-center justify-between gap-3">
+              <p class="text-xs text-neutral-400">Save this vehicle to your account for quick access</p>
+              <button
+                @click="saveVehicle"
+                :disabled="saving"
+                class="rounded-lg bg-[#FFD700] px-3 py-1.5 text-xs font-semibold text-black hover:brightness-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all whitespace-nowrap"
+              >
+                {{ saving ? 'Saving...' : 'Save Vehicle' }}
+              </button>
+            </div>
           </div>
           <div v-else class="mt-3 rounded-lg border border-neutral-800 bg-neutral-900/50 p-3 text-xs text-neutral-400">
             <p>Want to save this vehicle? <a href="/register" class="font-semibold text-[#FFD700] hover:underline">Create an account</a> or <a href="/login" class="font-semibold text-[#FFD700] hover:underline">log in</a>.</p>

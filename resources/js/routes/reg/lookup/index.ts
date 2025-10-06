@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\VehicleLookupController::search
-* @see app/Http/Controllers/VehicleLookupController.php:26
+* @see app/Http/Controllers/VehicleLookupController.php:27
 * @route '/reg-lookup'
 */
 export const search = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -16,7 +16,7 @@ search.definition = {
 
 /**
 * @see \App\Http\Controllers\VehicleLookupController::search
-* @see app/Http/Controllers/VehicleLookupController.php:26
+* @see app/Http/Controllers/VehicleLookupController.php:27
 * @route '/reg-lookup'
 */
 search.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ search.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\VehicleLookupController::search
-* @see app/Http/Controllers/VehicleLookupController.php:26
+* @see app/Http/Controllers/VehicleLookupController.php:27
 * @route '/reg-lookup'
 */
 search.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -35,7 +35,7 @@ search.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\VehicleLookupController::search
-* @see app/Http/Controllers/VehicleLookupController.php:26
+* @see app/Http/Controllers/VehicleLookupController.php:27
 * @route '/reg-lookup'
 */
 const searchForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -45,7 +45,7 @@ const searchForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> =>
 
 /**
 * @see \App\Http\Controllers\VehicleLookupController::search
-* @see app/Http/Controllers/VehicleLookupController.php:26
+* @see app/Http/Controllers/VehicleLookupController.php:27
 * @route '/reg-lookup'
 */
 searchForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

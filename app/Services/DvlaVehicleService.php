@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -35,18 +36,29 @@ class DvlaVehicleService
 
     /**
      * Look up vehicle details by registration number
+     * Results are cached for 24 hours to reduce API calls
      *
      * @param string $registrationNumber
+     * @param bool $skipCache Skip cache and force fresh lookup
      * @return array
      * @throws \Exception
      */
-    public function lookupVehicle(string $registrationNumber): array
+    public function lookupVehicle(string $registrationNumber, bool $skipCache = false): array
     {
-        // Clean the registration number (remove spaces and convert to uppercase)
-        $cleanReg = strtoupper(preg_replace('/[^A-Z0-9]/', '', $registrationNumber));
+        // Clean the registration number (remove non-alphanumeric and convert to uppercase)
+        $cleanReg = strtoupper(preg_replace('/[^A-Z0-9]/i', '', $registrationNumber));
 
         if (empty($cleanReg)) {
             throw new \InvalidArgumentException('Invalid registration number format');
+        }
+
+        // Cache key for this registration
+        $cacheKey = "dvla_vehicle_{$cleanReg}";
+
+        // Return cached result if available and not skipping cache
+        if (!$skipCache && Cache::has($cacheKey)) {
+            Log::info('DVLA Cache Hit', ['registration' => $cleanReg]);
+            return Cache::get($cacheKey);
         }
 
         try {
@@ -59,10 +71,17 @@ class DvlaVehicleService
 
             // Handle different response codes
             if ($response->successful()) {
-                return [
+                $result = [
                     'success' => true,
                     'data' => $response->json(),
                 ];
+
+                // Cache successful lookups for 24 hours
+                Cache::put($cacheKey, $result, now()->addHours(24));
+                
+                Log::info('DVLA API Success', ['registration' => $cleanReg]);
+
+                return $result;
             }
 
             // Handle specific error codes
@@ -80,6 +99,19 @@ class DvlaVehicleService
                 'message' => app()->environment('local') ? $e->getMessage() : null,
             ];
         }
+    }
+
+    /**
+     * Clear cached vehicle data for a specific registration
+     *
+     * @param string $registrationNumber
+     * @return void
+     */
+    public function clearCache(string $registrationNumber): void
+    {
+        $cleanReg = strtoupper(preg_replace('/[^A-Z0-9]/i', '', $registrationNumber));
+        $cacheKey = "dvla_vehicle_{$cleanReg}";
+        Cache::forget($cacheKey);
     }
 
     /**

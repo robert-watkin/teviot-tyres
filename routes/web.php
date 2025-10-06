@@ -9,7 +9,10 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
+    $vehicles = auth()->user()->vehicles()->latest()->get();
+    return Inertia::render('Dashboard', [
+        'vehicles' => $vehicles,
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Public pages
@@ -18,7 +21,15 @@ Route::get('services', function () {
 })->name('services');
 
 Route::get('reg-lookup', [VehicleLookupController::class, 'index'])->name('reg.lookup');
-Route::post('reg-lookup', [VehicleLookupController::class, 'lookup'])->name('reg.lookup.search');
+Route::post('reg-lookup', [VehicleLookupController::class, 'lookup'])
+    ->middleware('throttle:10,1') // 10 requests per minute
+    ->name('reg.lookup.search');
+
+// Vehicle management (authenticated users only)
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('vehicles', [VehicleLookupController::class, 'save'])->name('vehicles.save');
+    Route::delete('vehicles/{vehicle}', [VehicleLookupController::class, 'destroy'])->name('vehicles.destroy');
+});
 
 Route::get('contact', function () {
     return Inertia::render('public/Contact');
