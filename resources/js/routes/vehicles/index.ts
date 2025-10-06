@@ -57,7 +57,7 @@ save.form = saveForm
 
 /**
 * @see \App\Http\Controllers\VehicleLookupController::destroy
-* @see app/Http/Controllers/VehicleLookupController.php:107
+* @see app/Http/Controllers/VehicleLookupController.php:112
 * @route '/vehicles/{vehicle}'
 */
 export const destroy = (args: { vehicle: string | number | { id: string | number } } | [vehicle: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -72,7 +72,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\VehicleLookupController::destroy
-* @see app/Http/Controllers/VehicleLookupController.php:107
+* @see app/Http/Controllers/VehicleLookupController.php:112
 * @route '/vehicles/{vehicle}'
 */
 destroy.url = (args: { vehicle: string | number | { id: string | number } } | [vehicle: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
@@ -105,7 +105,7 @@ destroy.url = (args: { vehicle: string | number | { id: string | number } } | [v
 
 /**
 * @see \App\Http\Controllers\VehicleLookupController::destroy
-* @see app/Http/Controllers/VehicleLookupController.php:107
+* @see app/Http/Controllers/VehicleLookupController.php:112
 * @route '/vehicles/{vehicle}'
 */
 destroy.delete = (args: { vehicle: string | number | { id: string | number } } | [vehicle: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -115,7 +115,7 @@ destroy.delete = (args: { vehicle: string | number | { id: string | number } } |
 
 /**
 * @see \App\Http\Controllers\VehicleLookupController::destroy
-* @see app/Http/Controllers/VehicleLookupController.php:107
+* @see app/Http/Controllers/VehicleLookupController.php:112
 * @route '/vehicles/{vehicle}'
 */
 const destroyForm = (args: { vehicle: string | number | { id: string | number } } | [vehicle: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -130,7 +130,7 @@ const destroyForm = (args: { vehicle: string | number | { id: string | number } 
 
 /**
 * @see \App\Http\Controllers\VehicleLookupController::destroy
-* @see app/Http/Controllers/VehicleLookupController.php:107
+* @see app/Http/Controllers/VehicleLookupController.php:112
 * @route '/vehicles/{vehicle}'
 */
 destroyForm.delete = (args: { vehicle: string | number | { id: string | number } } | [vehicle: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

@@ -82,6 +82,11 @@ class VehicleLookupController extends Controller
         // Clean registration (remove non-alphanumeric, then uppercase)
         $cleanReg = strtoupper(preg_replace('/[^A-Z0-9]/i', '', $validated['registration']));
 
+        // Check if user has reached the limit of 10 vehicles
+        if ($request->user()->vehicles()->count() >= 10) {
+            return back()->with('error', 'You have reached the maximum limit of 10 saved vehicles. Please delete a vehicle before adding a new one.');
+        }
+
         // Check if already saved
         $existing = $request->user()->vehicles()
             ->where('registration', $cleanReg)

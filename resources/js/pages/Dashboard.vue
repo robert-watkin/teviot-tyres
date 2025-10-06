@@ -61,7 +61,7 @@ const formatEngineSize = (cc?: number) => {
             </div>
 
             <!-- Quick Stats -->
-            <div class="grid gap-4 md:grid-cols-3">
+            <div class="grid gap-4 md:grid-cols-2">
                 <div class="rounded-xl border border-sidebar-border bg-card p-6">
                     <div class="flex items-center gap-3">
                         <div class="rounded-lg bg-[#FFD700]/20 p-2">
@@ -71,14 +71,6 @@ const formatEngineSize = (cc?: number) => {
                             <p class="text-2xl font-bold">{{ props.vehicles.length }}</p>
                             <p class="text-sm text-muted-foreground">Saved Vehicles</p>
                         </div>
-                    </div>
-                </div>
-                <div class="rounded-xl border border-sidebar-border bg-card p-6">
-                    <div>
-                        <p class="text-sm text-muted-foreground">Quick Actions</p>
-                        <Link href="/reg-lookup" class="mt-2 inline-flex items-center text-sm font-medium text-[#FFD700] hover:underline">
-                            Lookup New Vehicle →
-                        </Link>
                     </div>
                 </div>
                 <div class="rounded-xl border border-sidebar-border bg-card p-6">

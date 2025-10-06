@@ -124,18 +124,27 @@ test('rate limit includes retry after header', function () {
 test('vehicle save route is not rate limited', function () {
     $user = \App\Models\User::factory()->create();
     
-    // Should be able to save more than 10 vehicles
-    for ($i = 0; $i < 12; $i++) {
+    // Should be able to save up to 10 vehicles (user limit, not rate limit)
+    for ($i = 0; $i < 10; $i++) {
         $response = $this->actingAs($user)->post(route('vehicles.save'), [
             'registration' => "ABC12{$i}",
             'vehicle_data' => ['make' => 'FORD'],
         ]);
         
-        // First 12 should all succeed (no rate limit on this route)
+        // First 10 should all succeed (no rate limit on this route)
         $response->assertSessionHasNoErrors();
     }
     
-    expect(\App\Models\Vehicle::count())->toBe(12);
+    expect(\App\Models\Vehicle::count())->toBe(10);
+    
+    // 11th vehicle should fail due to user limit, not rate limiting
+    $response = $this->actingAs($user)->post(route('vehicles.save'), [
+        'registration' => 'XYZ999',
+        'vehicle_data' => ['make' => 'TOYOTA'],
+    ]);
+    
+    $response->assertSessionHas('error');
+    expect(\App\Models\Vehicle::count())->toBe(10);
 });
 
 test('rate limit resets correctly', function () {

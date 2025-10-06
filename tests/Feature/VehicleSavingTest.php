@@ -216,3 +216,38 @@ test('dashboard displays saved vehicles', function () {
     $vehicles = $response->viewData('page')['props']['vehicles'];
     expect($vehicles)->toHaveCount(2);
 });
+
+test('user cannot save more than 10 vehicles', function () {
+    $user = User::factory()->create();
+
+    // Create 10 vehicles
+    for ($i = 1; $i <= 10; $i++) {
+        Vehicle::create([
+            'user_id' => $user->id,
+            'registration' => "ABC{$i}23",
+            'vehicle_data' => ['make' => 'FORD'],
+        ]);
+    }
+
+    // Try to save 11th vehicle
+    $response = $this->actingAs($user)->post(route('vehicles.save'), [
+        'registration' => 'XYZ999',
+        'vehicle_data' => ['make' => 'TOYOTA'],
+    ]);
+
+    $response->assertSessionHas('error');
+    expect(Vehicle::where('user_id', $user->id)->count())->toBe(10);
+    expect($response->getSession()->get('error'))->toContain('maximum limit of 10');
+});
+
+test('intent-based redirect works for unauthenticated users', function () {
+    // Guest tries to access reg lookup with autoSave parameter
+    $response = $this->get(route('reg.lookup', [
+        'registration' => 'ABC123',
+        'autoSave' => '1',
+    ]));
+
+    // Should show the page with the registration pre-filled
+    $response->assertStatus(200);
+    $response->assertSee('ABC123');
+});

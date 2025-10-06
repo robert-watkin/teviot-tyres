@@ -4,7 +4,9 @@ import { Head, usePage, useForm, router } from '@inertiajs/vue3';
 import { computed, onMounted, ref } from 'vue';
 import Reveal from '@/components/Reveal.vue';
 import { CheckCircle, Shield, CreditCard, Phone } from '@iconoir/vue';
+import { Bookmark, X } from 'lucide-vue-next';
 import reg from '@/routes/reg';
+import { dashboard } from '@/routes';
 
 interface VehicleData {
   registration: string;
@@ -55,36 +57,65 @@ const formatEngineSize = (cc?: number) => {
 };
 
 const saving = ref(false);
+const showSuccessBanner = ref(false);
 
 const saveVehicle = () => {
   if (!props.vehicle) return;
   
+  // If not authenticated, redirect to login with intent
+  if (!isAuthed.value) {
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('registration', props.vehicle.registration);
+    currentUrl.searchParams.set('autoSave', '1');
+    window.location.href = `/login?intended=${encodeURIComponent(currentUrl.pathname + currentUrl.search)}`;
+    return;
+  }
+  
+  // If authenticated, save directly
   saving.value = true;
   router.post('/vehicles', {
     registration: props.vehicle.registration,
     vehicle_data: props.vehicle as any,
   }, {
     preserveScroll: true,
+    onSuccess: () => {
+      showSuccessBanner.value = true;
+    },
     onFinish: () => {
       saving.value = false;
     },
   });
 };
 
-// Handle query parameters from hero form
+const closeBanner = () => {
+  showSuccessBanner.value = false;
+};
+
+// Handle query parameters from hero form and auto-save intent
 onMounted(() => {
   const urlParams = new URLSearchParams(window.location.search);
   const registration = urlParams.get('registration');
   const autoSubmit = urlParams.get('autoSubmit');
+  const autoSave = urlParams.get('autoSave');
   
   if (registration) {
     form.registration = registration;
     
     // Auto-submit if flag is set
-    if (autoSubmit === '1' && !props.vehicle) {
+    if ((autoSubmit === '1' || autoSave === '1') && !props.vehicle) {
       // Small delay to ensure UI is ready
       setTimeout(() => {
-        submit();
+        form.post(reg.lookup.search.url(), {
+          preserveScroll: true,
+          onSuccess: () => {
+            // If autoSave flag is set and user is authenticated, save the vehicle
+            if (autoSave === '1' && isAuthed.value) {
+              setTimeout(() => {
+                saveVehicle();
+              }, 500);
+            }
+          },
+        });
       }, 100);
     }
   }
@@ -94,6 +125,43 @@ onMounted(() => {
 <template>
   <PublicLayout title="Reg Lookup">
     <Head title="Reg Lookup" />
+    
+    <!-- Success Banner -->
+    <Transition
+      enter-active-class="transition ease-out duration-300"
+      enter-from-class="opacity-0 -translate-y-4"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-active-class="transition ease-in duration-200"
+      leave-from-class="opacity-100 translate-y-0"
+      leave-to-class="opacity-0 -translate-y-4"
+    >
+      <div v-if="showSuccessBanner" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4">
+        <div class="rounded-lg border border-green-500/30 bg-green-950/90 backdrop-blur-sm p-4 shadow-lg">
+          <div class="flex items-start gap-3">
+            <div class="rounded-lg bg-green-500/20 p-2 flex-shrink-0">
+              <CheckCircle class="h-5 w-5 text-green-400" />
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-sm font-semibold text-white">Vehicle Saved!</h3>
+              <p class="mt-1 text-xs text-green-200">{{ props.vehicle?.registration }} has been added to your account.</p>
+              <a 
+                href="/dashboard" 
+                class="mt-2 inline-flex items-center gap-1 text-xs font-medium text-green-400 hover:text-green-300 transition-colors"
+              >
+                View Dashboard →
+              </a>
+            </div>
+            <button 
+              @click="closeBanner"
+              class="flex-shrink-0 rounded-lg p-1 text-green-400 hover:bg-green-500/20 transition-colors"
+            >
+              <X class="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </Transition>
+    
     <section class="mx-auto w-full max-w-5xl px-4" :class="props.vehicle || form.processing ? 'py-8' : 'min-h-[calc(100vh-4rem)] flex flex-col justify-center py-16'">
       <Reveal mode="up">
         <div :class="props.vehicle || form.processing ? '' : 'max-w-2xl mx-auto text-center'">
@@ -265,19 +333,28 @@ onMounted(() => {
           </div>
 
           <!-- Save to Account -->
-          <div v-if="isAuthed" class="mt-3 rounded-lg border border-neutral-800 bg-neutral-900/50 p-3">
+          <div v-if="isAuthed" class="mt-3 rounded-lg border border-neutral-800 bg-neutral-900/50 p-4">
             <div v-if="props.isSaved" class="flex items-center gap-2 text-sm text-green-400">
-              <CheckCircle class="h-4 w-4" />
-              <span>Vehicle saved to your account</span>
+              <CheckCircle class="h-5 w-5" />
+              <span class="font-medium">Vehicle saved to your account</span>
             </div>
-            <div v-else class="flex items-center justify-between gap-3">
-              <p class="text-xs text-neutral-400">Save this vehicle to your account for quick access</p>
+            <div v-else class="flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <div class="rounded-lg bg-[#FFD700]/20 p-2">
+                  <Bookmark class="h-5 w-5 text-[#FFD700]" />
+                </div>
+                <div>
+                  <p class="text-sm font-medium text-white">Save this vehicle</p>
+                  <p class="text-xs text-neutral-400">Quick access from your dashboard</p>
+                </div>
+              </div>
               <button
                 @click="saveVehicle"
                 :disabled="saving"
-                class="rounded-lg bg-[#FFD700] px-3 py-1.5 text-xs font-semibold text-black hover:brightness-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all whitespace-nowrap"
+                class="inline-flex items-center gap-2 rounded-lg bg-[#FFD700] px-4 py-2 text-sm font-semibold text-black hover:brightness-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all whitespace-nowrap"
               >
-                {{ saving ? 'Saving...' : 'Save Vehicle' }}
+                <Bookmark class="h-4 w-4" />
+                <span>{{ saving ? 'Saving...' : 'Save' }}</span>
               </button>
             </div>
           </div>
