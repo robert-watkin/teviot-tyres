@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -28,19 +27,6 @@ class AdminController extends Controller
         $vehiclesLastWeek = Vehicle::whereBetween('created_at', [now()->subWeeks(2), now()->subWeek()])->count();
         $vehiclesGrowth = $vehiclesLastWeek > 0 ? round((($vehiclesThisWeek - $vehiclesLastWeek) / $vehiclesLastWeek) * 100, 1) : 0;
 
-        // Most saved vehicles
-        $topVehicles = Vehicle::select('registration', DB::raw('COUNT(*) as save_count'))
-            ->groupBy('registration')
-            ->orderByDesc('save_count')
-            ->limit(10)
-            ->get();
-
-        // Recent users
-        $recentUsers = User::latest()->limit(5)->get();
-
-        // Recent vehicles
-        $recentVehicles = Vehicle::with('user')->latest()->limit(5)->get();
-
         return Inertia::render('Admin/Dashboard', [
             'stats' => [
                 'totalUsers' => $totalUsers,
@@ -50,9 +36,6 @@ class AdminController extends Controller
                 'vehiclesThisWeek' => $vehiclesThisWeek,
                 'vehiclesGrowth' => $vehiclesGrowth,
             ],
-            'topVehicles' => $topVehicles,
-            'recentUsers' => $recentUsers,
-            'recentVehicles' => $recentVehicles,
         ]);
     }
 
@@ -63,8 +46,19 @@ class AdminController extends Controller
     {
         $search = $request->get('search');
         $roleFilter = $request->get('role');
+        $allowedUserSorts = ['name', 'email', 'role', 'vehicles_count', 'created_at'];
+        $allowedDirections = ['asc', 'desc'];
+
         $sortBy = $request->get('sort', 'created_at');
         $sortDirection = $request->get('direction', 'desc');
+
+        if (!in_array($sortBy, $allowedUserSorts, true)) {
+            $sortBy = 'created_at';
+        }
+
+        if (!in_array($sortDirection, $allowedDirections, true)) {
+            $sortDirection = 'desc';
+        }
 
         $users = User::withCount('vehicles')
             ->when($search, fn($q) => $q->where('name', 'like', "%{$search}%")
@@ -97,12 +91,49 @@ class AdminController extends Controller
     public function vehicles(Request $request): Response
     {
         $search = $request->get('search');
+        $allowedVehicleSorts = [
+            'registration',
+            'created_at',
+            'user_name',
+            'vehicle_make',
+            'vehicle_colour',
+            'vehicle_year',
+        ];
+        $allowedDirections = ['asc', 'desc'];
+
         $sortBy = $request->get('sort', 'created_at');
         $sortDirection = $request->get('direction', 'desc');
 
-        $vehicles = Vehicle::with('user')
-            ->when($search, fn($q) => $q->where('registration', 'like', "%{$search}%"))
-            ->orderBy($sortBy, $sortDirection)
+        if (!in_array($sortBy, $allowedVehicleSorts, true)) {
+            $sortBy = 'created_at';
+        }
+
+        if (!in_array($sortDirection, $allowedDirections, true)) {
+            $sortDirection = 'desc';
+        }
+
+        $vehiclesQuery = Vehicle::query()
+            ->with('user')
+            ->when($search, fn($q) => $q->where('registration', 'like', "%{$search}%"));
+
+        if ($sortBy === 'user_name') {
+            $vehiclesQuery
+                ->leftJoin('users', 'vehicles.user_id', '=', 'users.id')
+                ->select('vehicles.*')
+                ->orderBy('users.name', $sortDirection);
+        } elseif ($sortBy === 'vehicle_make') {
+            $vehiclesQuery
+                ->orderByRaw("LOWER(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(vehicle_data, '$.make')), '')) {$sortDirection}")
+                ->orderByRaw("LOWER(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(vehicle_data, '$.model')), '')) {$sortDirection}");
+        } elseif ($sortBy === 'vehicle_colour') {
+            $vehiclesQuery->orderByRaw("LOWER(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(vehicle_data, '$.colour')), '')) {$sortDirection}");
+        } elseif ($sortBy === 'vehicle_year') {
+            $vehiclesQuery->orderByRaw("CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(vehicle_data, '$.year_of_manufacture')), '0') AS UNSIGNED) {$sortDirection}");
+        } else {
+            $vehiclesQuery->orderBy("vehicles.{$sortBy}", $sortDirection);
+        }
+
+        $vehicles = $vehiclesQuery
             ->paginate(20)
             ->withQueryString();
 
@@ -113,6 +144,19 @@ class AdminController extends Controller
                 'sort' => $sortBy,
                 'direction' => $sortDirection,
             ],
+        ]);
+    }
+
+    /**
+     * Show a specific user's details
+     */
+    public function showUser(User $user): Response
+    {
+        $user->load(['vehicles' => fn($q) => $q->latest()]);
+        $user->loadCount('vehicles');
+
+        return Inertia::render('Admin/UserDetail', [
+            'user' => $user,
         ]);
     }
 
@@ -128,20 +172,18 @@ class AdminController extends Controller
             ->withCount('vehicles')
             ->get();
 
-        // Search for users to promote (only regular users)
-        $searchResults = $search
-            ? User::where('role', 'user')
-                ->where(function($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%")
-                      ->orWhere('email', 'like', "%{$search}%");
-                })
-                ->limit(10)
-                ->get()
-            : collect();
+        // Get all regular users (paginated, with optional search filter)
+        $users = User::where('role', 'user')
+            ->withCount('vehicles')
+            ->when($search, fn($q) => $q->where('name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%"))
+            ->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('Admin/ManageAdmins', [
             'admins' => $admins,
-            'searchResults' => $searchResults,
+            'users' => $users,
             'search' => $search,
         ]);
     }

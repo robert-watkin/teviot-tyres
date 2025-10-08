@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\AdminController::deleteMethod
-* @see app/Http/Controllers/AdminController.php:172
+* @see app/Http/Controllers/AdminController.php:214
 * @route '/admin/vehicles/{vehicle}'
 */
 export const deleteMethod = (args: { vehicle: string | number | { id: string | number } } | [vehicle: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -16,7 +16,7 @@ deleteMethod.definition = {
 
 /**
 * @see \App\Http\Controllers\AdminController::deleteMethod
-* @see app/Http/Controllers/AdminController.php:172
+* @see app/Http/Controllers/AdminController.php:214
 * @route '/admin/vehicles/{vehicle}'
 */
 deleteMethod.url = (args: { vehicle: string | number | { id: string | number } } | [vehicle: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
@@ -49,7 +49,7 @@ deleteMethod.url = (args: { vehicle: string | number | { id: string | number } }
 
 /**
 * @see \App\Http\Controllers\AdminController::deleteMethod
-* @see app/Http/Controllers/AdminController.php:172
+* @see app/Http/Controllers/AdminController.php:214
 * @route '/admin/vehicles/{vehicle}'
 */
 deleteMethod.delete = (args: { vehicle: string | number | { id: string | number } } | [vehicle: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -59,7 +59,7 @@ deleteMethod.delete = (args: { vehicle: string | number | { id: string | number 
 
 /**
 * @see \App\Http\Controllers\AdminController::deleteMethod
-* @see app/Http/Controllers/AdminController.php:172
+* @see app/Http/Controllers/AdminController.php:214
 * @route '/admin/vehicles/{vehicle}'
 */
 const deleteMethodForm = (args: { vehicle: string | number | { id: string | number } } | [vehicle: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -74,7 +74,7 @@ const deleteMethodForm = (args: { vehicle: string | number | { id: string | numb
 
 /**
 * @see \App\Http\Controllers\AdminController::deleteMethod
-* @see app/Http/Controllers/AdminController.php:172
+* @see app/Http/Controllers/AdminController.php:214
 * @route '/admin/vehicles/{vehicle}'
 */
 deleteMethodForm.delete = (args: { vehicle: string | number | { id: string | number } } | [vehicle: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

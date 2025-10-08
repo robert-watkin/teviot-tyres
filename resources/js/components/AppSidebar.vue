@@ -11,14 +11,17 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarGroup,
-    SidebarGroupLabel,
-    SidebarGroupContent,
+    SidebarMenuSub,
+    SidebarMenuSubButton,
+    SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { urlIsActive } from '@/lib/utils';
 import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { LayoutGrid, BarChart3, Users, Car, Shield } from 'lucide-vue-next';
-import { computed } from 'vue';
+import { LayoutGrid, BarChart3, Users, Car, Shield, ChevronRight } from 'lucide-vue-next';
+import { computed, ref } from 'vue';
 import AppLogo from './AppLogo.vue';
 
 const page = usePage();
@@ -61,6 +64,8 @@ const ownerNavItems: NavItem[] = [
 ];
 
 const footerNavItems: NavItem[] = [];
+
+const adminDropdownOpen = ref(true);
 </script>
 
 <template>
@@ -78,15 +83,49 @@ const footerNavItems: NavItem[] = [];
         </SidebarHeader>
 
         <SidebarContent>
-            <NavMain :items="mainNavItems" />
+            <NavMain :items="mainNavItems" :show-label="false" />
             
             <!-- Admin Section (only visible to admins) -->
             <SidebarGroup v-if="isAdmin">
-                <SidebarGroupLabel>Admin</SidebarGroupLabel>
-                <SidebarGroupContent>
-                    <NavMain :items="adminNavItems" />
-                    <NavMain v-if="isOwner" :items="ownerNavItems" />
-                </SidebarGroupContent>
+                <SidebarMenu>
+                    <Collapsible v-model:open="adminDropdownOpen" as-child default-open class="group/collapsible">
+                        <SidebarMenuItem>
+                            <CollapsibleTrigger as-child>
+                                <SidebarMenuButton :tooltip="'Admin'">
+                                    <Shield />
+                                    <span>Admin</span>
+                                    <ChevronRight class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                </SidebarMenuButton>
+                            </CollapsibleTrigger>
+                            <CollapsibleContent>
+                                <SidebarMenuSub>
+                                    <SidebarMenuSubItem v-for="item in adminNavItems" :key="item.title">
+                                        <SidebarMenuSubButton
+                                            as-child
+                                            :is-active="urlIsActive(item.href, page.url)"
+                                        >
+                                            <Link :href="item.href">
+                                                <component :is="item.icon" />
+                                                <span>{{ item.title }}</span>
+                                            </Link>
+                                        </SidebarMenuSubButton>
+                                    </SidebarMenuSubItem>
+                                    <SidebarMenuSubItem v-if="isOwner" v-for="item in ownerNavItems" :key="item.title">
+                                        <SidebarMenuSubButton
+                                            as-child
+                                            :is-active="urlIsActive(item.href, page.url)"
+                                        >
+                                            <Link :href="item.href">
+                                                <component :is="item.icon" />
+                                                <span>{{ item.title }}</span>
+                                            </Link>
+                                        </SidebarMenuSubButton>
+                                    </SidebarMenuSubItem>
+                                </SidebarMenuSub>
+                            </CollapsibleContent>
+                        </SidebarMenuItem>
+                    </Collapsible>
+                </SidebarMenu>
             </SidebarGroup>
         </SidebarContent>
 

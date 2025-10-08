@@ -5,8 +5,19 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import { store } from '@/routes/password/confirm';
-import { Form, Head } from '@inertiajs/vue3';
-import { LoaderCircle } from 'lucide-vue-next';
+import { Form, Head, router } from '@inertiajs/vue3';
+import { ArrowLeft, LoaderCircle } from 'lucide-vue-next';
+
+const fallbackRoute = '/dashboard';
+
+const goBack = () => {
+    if (window.history.length > 1) {
+        window.history.back();
+        return;
+    }
+
+    router.visit(fallbackRoute);
+};
 </script>
 
 <template>
@@ -15,6 +26,20 @@ import { LoaderCircle } from 'lucide-vue-next';
         description="This is a secure area of the application. Please confirm your password before continuing."
     >
         <Head title="Confirm password" />
+
+        <template #header-actions>
+            <div class="flex w-full justify-start">
+                <Button
+                    type="button"
+                    variant="ghost"
+                    class="inline-flex items-center gap-2 px-0 text-sm text-muted-foreground hover:text-foreground"
+                    @click="goBack"
+                >
+                    <ArrowLeft class="h-4 w-4" />
+                    Back
+                </Button>
+            </div>
+        </template>
 
         <Form
             v-bind="store.form()"

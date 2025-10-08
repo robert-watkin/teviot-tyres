@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/app/AppSidebarLayout.vue';
-import { Head, router, useForm } from '@inertiajs/vue3';
-import { Car, Trash2, Search, User } from 'lucide-vue-next';
-import { ref } from 'vue';
+import RegistrationPlate from '@/components/RegistrationPlate.vue';
+import { Head, Link, router, useForm } from '@inertiajs/vue3';
+import { Car, Trash2, Search, User, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-vue-next';
+import { ref, computed } from 'vue';
 
 interface Vehicle {
   id: number;
@@ -41,9 +42,9 @@ interface Props {
 const props = defineProps<Props>();
 
 const breadcrumbs = [
-  { label: 'Dashboard', href: '/dashboard' },
-  { label: 'Admin', href: '/admin' },
-  { label: 'Vehicles' },
+  { title: 'Dashboard', href: '/dashboard' },
+  { title: 'Admin', href: '/admin' },
+  { title: 'Vehicles', href: '/admin/vehicles' },
 ];
 
 const searchForm = useForm({
@@ -54,9 +55,14 @@ const deleteForm = useForm({});
 const vehicleToDelete = ref<Vehicle | null>(null);
 const showDeleteDialog = ref(false);
 
+const currentSort = computed(() => props.filters.sort || 'created_at');
+const currentDirection = computed(() => props.filters.direction || 'desc');
+
 const search = () => {
   router.get('/admin/vehicles', {
     search: searchForm.search,
+    sort: currentSort.value,
+    direction: currentDirection.value,
   }, {
     preserveState: true,
     preserveScroll: true,
@@ -91,6 +97,30 @@ const formatDate = (date: string) => {
     month: 'short',
     year: 'numeric',
   });
+};
+
+const sort = (column: string) => {
+  let direction = 'asc';
+
+  if (props.filters.sort === column) {
+    direction = props.filters.direction === 'asc' ? 'desc' : 'asc';
+  }
+
+  router.get('/admin/vehicles', {
+    search: searchForm.search,
+    sort: column,
+    direction: direction,
+  }, {
+    preserveState: true,
+    preserveScroll: true,
+  });
+};
+
+const getSortIcon = (column: string) => {
+  if (props.filters.sort !== column) {
+    return ArrowUpDown;
+  }
+  return props.filters.direction === 'asc' ? ArrowUp : ArrowDown;
 };
 </script>
 
@@ -148,25 +178,61 @@ const formatDate = (date: string) => {
           <table class="w-full">
             <thead class="border-b border-sidebar-border bg-muted/50">
               <tr>
-                <th class="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Registration
+                <th class="w-[12rem] min-w-[12rem] px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                  <button
+                    @click="sort('registration')"
+                    class="inline-flex items-center gap-1 hover:text-foreground transition-colors"
+                  >
+                    Registration
+                    <component :is="getSortIcon('registration')" class="h-3 w-3" />
+                  </button>
                 </th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Make / Model
+                <th class="w-[16rem] min-w-[16rem] px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                  <button
+                    @click="sort('vehicle_make')"
+                    class="inline-flex items-center gap-1 hover:text-foreground transition-colors"
+                  >
+                    Make / Model
+                    <component :is="getSortIcon('vehicle_make')" class="h-3 w-3" />
+                  </button>
                 </th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Colour
+                <th class="w-[10rem] min-w-[10rem] px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                  <button
+                    @click="sort('vehicle_colour')"
+                    class="inline-flex items-center gap-1 hover:text-foreground transition-colors"
+                  >
+                    Colour
+                    <component :is="getSortIcon('vehicle_colour')" class="h-3 w-3" />
+                  </button>
                 </th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Year
+                <th class="w-[6rem] min-w-[6rem] px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                  <button
+                    @click="sort('vehicle_year')"
+                    class="inline-flex items-center gap-1 hover:text-foreground transition-colors"
+                  >
+                    Year
+                    <component :is="getSortIcon('vehicle_year')" class="h-3 w-3" />
+                  </button>
                 </th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Saved By
+                <th class="w-[16rem] min-w-[16rem] px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                  <button
+                    @click="sort('user_name')"
+                    class="inline-flex items-center gap-1 hover:text-foreground transition-colors"
+                  >
+                    Saved By
+                    <component :is="getSortIcon('user_name')" class="h-3 w-3" />
+                  </button>
                 </th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Date Saved
+                <th class="w-[10rem] min-w-[10rem] px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                  <button
+                    @click="sort('created_at')"
+                    class="inline-flex items-center gap-1 hover:text-foreground transition-colors"
+                  >
+                    Date Saved
+                    <component :is="getSortIcon('created_at')" class="h-3 w-3" />
+                  </button>
                 </th>
-                <th class="px-4 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                <th class="w-[9rem] min-w-[9rem] px-4 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -182,34 +248,37 @@ const formatDate = (date: string) => {
                 :key="vehicle.id"
                 class="hover:bg-muted/50 transition-colors"
               >
-                <td class="px-4 py-3">
-                  <p class="font-mono font-semibold">{{ vehicle.registration }}</p>
+                <td class="w-[12rem] min-w-[12rem] px-4 py-3">
+                  <RegistrationPlate :registration="vehicle.registration" size="md" />
                 </td>
-                <td class="px-4 py-3">
+                <td class="w-[16rem] min-w-[16rem] px-4 py-3">
                   <p class="text-sm">
                     {{ vehicle.vehicle_data.make || 'N/A' }}
                     {{ vehicle.vehicle_data.model ? `- ${vehicle.vehicle_data.model}` : '' }}
                   </p>
                 </td>
-                <td class="px-4 py-3">
+                <td class="w-[10rem] min-w-[10rem] px-4 py-3">
                   <p class="text-sm">{{ vehicle.vehicle_data.colour || 'N/A' }}</p>
                 </td>
-                <td class="px-4 py-3">
+                <td class="w-[6rem] min-w-[6rem] px-4 py-3">
                   <p class="text-sm">{{ vehicle.vehicle_data.year_of_manufacture || 'N/A' }}</p>
                 </td>
-                <td class="px-4 py-3">
-                  <div class="flex items-center gap-2">
+                <td class="w-[16rem] min-w-[16rem] px-4 py-3">
+                  <Link
+                    :href="`/admin/users/${vehicle.user.id}`"
+                    class="flex items-center gap-2 hover:text-[#FFD700] transition-colors"
+                  >
                     <User class="h-4 w-4 text-muted-foreground" />
                     <div>
                       <p class="text-sm font-medium">{{ vehicle.user.name }}</p>
                       <p class="text-xs text-muted-foreground">{{ vehicle.user.email }}</p>
                     </div>
-                  </div>
+                  </Link>
                 </td>
-                <td class="px-4 py-3">
+                <td class="w-[10rem] min-w-[10rem] px-4 py-3">
                   <p class="text-sm text-muted-foreground">{{ formatDate(vehicle.created_at) }}</p>
                 </td>
-                <td class="px-4 py-3">
+                <td class="w-[9rem] min-w-[9rem] px-4 py-3">
                   <div class="flex items-center justify-end gap-2">
                     <!-- Delete Vehicle -->
                     <button
@@ -239,7 +308,7 @@ const formatDate = (date: string) => {
               <a
                 v-for="page in props.vehicles.last_page"
                 :key="page"
-                :href="`/admin/vehicles?page=${page}${searchForm.search ? '&search=' + searchForm.search : ''}`"
+                :href="`/admin/vehicles?page=${page}${searchForm.search ? '&search=' + searchForm.search : ''}${props.filters.sort ? '&sort=' + props.filters.sort : ''}${props.filters.direction ? '&direction=' + props.filters.direction : ''}`"
                 :class="[
                   'px-3 py-1 rounded-lg text-sm font-medium transition-colors',
                   page === props.vehicles.current_page

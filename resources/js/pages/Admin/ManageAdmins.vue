@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/app/AppSidebarLayout.vue';
-import { Head, router, useForm } from '@inertiajs/vue3';
-import { Shield, UserPlus, UserMinus, Search } from 'lucide-vue-next';
+import { Head, Link, router, useForm } from '@inertiajs/vue3';
+import { Shield, UserPlus, UserMinus, Search, ChevronLeft, ChevronRight } from 'lucide-vue-next';
 import { ref } from 'vue';
 
 interface User {
@@ -13,18 +13,31 @@ interface User {
   created_at: string;
 }
 
+interface PaginatedUsers {
+  data: User[];
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  total: number;
+  links: Array<{
+    url: string | null;
+    label: string;
+    active: boolean;
+  }>;
+}
+
 interface Props {
   admins: User[];
-  searchResults: User[];
+  users: PaginatedUsers;
   search?: string;
 }
 
 const props = defineProps<Props>();
 
 const breadcrumbs = [
-  { label: 'Dashboard', href: '/dashboard' },
-  { label: 'Admin', href: '/admin' },
-  { label: 'Manage Admins' },
+  { title: 'Dashboard', href: '/dashboard' },
+  { title: 'Admin', href: '/admin' },
+  { title: 'Manage Admins', href: '/admin/manage-admins' },
 ];
 
 const searchForm = useForm({
@@ -154,7 +167,7 @@ const formatDate = (date: string) => {
       <div class="rounded-xl border border-sidebar-border bg-card">
         <div class="border-b border-sidebar-border p-4">
           <h2 class="font-semibold">Promote User to Admin</h2>
-          <p class="text-sm text-muted-foreground">Search for users to promote</p>
+          <p class="text-sm text-muted-foreground">{{ props.users.total }} user(s) available</p>
         </div>
         <div class="p-4">
           <!-- Search -->
@@ -187,20 +200,23 @@ const formatDate = (date: string) => {
             </button>
           </div>
 
-          <!-- Search Results -->
-          <div v-if="searchForm.search">
-            <div v-if="props.searchResults.length === 0" class="py-8 text-center text-sm text-muted-foreground">
-              No users found
-            </div>
-            <div v-else class="space-y-2">
+          <!-- Users List -->
+          <div v-if="props.users.data.length === 0" class="py-8 text-center text-sm text-muted-foreground">
+            No users found
+          </div>
+          <div v-else>
+            <div class="space-y-2">
               <div
-                v-for="user in props.searchResults"
+                v-for="user in props.users.data"
                 :key="user.id"
                 class="flex items-center justify-between rounded-lg border border-sidebar-border p-3"
               >
                 <div>
                   <p class="font-medium">{{ user.name }}</p>
                   <p class="text-sm text-muted-foreground">{{ user.email }}</p>
+                  <p class="text-xs text-muted-foreground mt-1">
+                    Joined {{ formatDate(user.created_at) }} • {{ user.vehicles_count }} vehicles
+                  </p>
                 </div>
                 <button
                   @click="confirmPromote(user)"
@@ -211,9 +227,36 @@ const formatDate = (date: string) => {
                 </button>
               </div>
             </div>
-          </div>
-          <div v-else class="py-8 text-center text-sm text-muted-foreground">
-            Search for users to promote to admin
+
+            <!-- Pagination -->
+            <div v-if="props.users.last_page > 1" class="mt-4 flex items-center justify-between border-t border-sidebar-border pt-4">
+              <p class="text-sm text-muted-foreground">
+                Showing {{ ((props.users.current_page - 1) * props.users.per_page) + 1 }} to 
+                {{ Math.min(props.users.current_page * props.users.per_page, props.users.total) }} of 
+                {{ props.users.total }} users
+              </p>
+              <div class="flex items-center gap-2">
+                <Link
+                  v-for="link in props.users.links"
+                  :key="link.label"
+                  :href="link.url || '#'"
+                  :class="[
+                    'inline-flex items-center justify-center rounded-lg px-3 py-1.5 text-sm transition-colors',
+                    link.active
+                      ? 'bg-[#FFD700] text-black font-semibold'
+                      : link.url
+                        ? 'border border-sidebar-border hover:bg-muted'
+                        : 'opacity-50 cursor-not-allowed',
+                  ]"
+                  :preserve-scroll="true"
+                  :preserve-state="true"
+                >
+                  <ChevronLeft v-if="link.label === '&laquo; Previous'" class="h-4 w-4" />
+                  <ChevronRight v-else-if="link.label === 'Next &raquo;'" class="h-4 w-4" />
+                  <span v-else v-html="link.label"></span>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>

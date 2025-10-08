@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
+import RegistrationPlate from '@/components/RegistrationPlate.vue';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/vue3';
@@ -109,8 +110,8 @@ const formatEngineSize = (cc?: number) => {
                                         <CarIcon class="h-5 w-5 text-[#FFD700]" />
                                     </div>
                                     <div>
-                                        <h3 class="text-lg font-bold">{{ vehicle.registration }}</h3>
-                                        <p class="text-sm text-muted-foreground">
+                                        <RegistrationPlate :registration="vehicle.registration" size="lg" />
+                                        <p class="mt-2 text-sm text-muted-foreground">
                                             {{ vehicle.vehicle_data.make }} • {{ vehicle.vehicle_data.year_of_manufacture }}
                                         </p>
                                     </div>

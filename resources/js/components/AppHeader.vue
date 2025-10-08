@@ -34,8 +34,8 @@ import { toUrl, urlIsActive } from '@/lib/utils';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem, NavItem } from '@/types';
 import { InertiaLinkProps, Link, usePage } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-vue-next';
-import { computed } from 'vue';
+import { BookOpen, Folder, LayoutGrid, Search } from 'lucide-vue-next';
+import { computed, ref } from 'vue';
 
 interface Props {
     breadcrumbs?: BreadcrumbItem[];
@@ -68,6 +68,7 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
+const mobileNavOpen = ref(false);
 const rightNavItems: NavItem[] = [
     {
         title: 'Repository',
@@ -88,15 +89,31 @@ const rightNavItems: NavItem[] = [
             <div class="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
                 <!-- Mobile Menu -->
                 <div class="lg:hidden">
-                    <Sheet>
+                    <Sheet v-model:open="mobileNavOpen">
                         <SheetTrigger :as-child="true">
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                class="mr-2 h-9 w-9"
+                            <button
+                                type="button"
+                                class="mr-2 inline-flex h-10 w-10 items-center justify-center rounded-lg border border-sidebar-border text-muted-foreground transition-colors hover:text-foreground"
+                                aria-label="Toggle navigation"
                             >
-                                <Menu class="h-5 w-5" />
-                            </Button>
+                                <span class="sr-only">Toggle navigation</span>
+                                <div class="relative h-5 w-6">
+                                    <span
+                                        class="absolute left-0 block h-0.5 w-full rounded bg-current transition-transform duration-300 ease-out [transform-origin:center]"
+                                        :class="{ 'translate-y-2 rotate-45': mobileNavOpen }"
+                                    ></span>
+                                    <span
+                                        class="absolute left-0 block h-0.5 w-full rounded bg-current transition-opacity duration-300 ease-out"
+                                        :class="{ 'opacity-0': mobileNavOpen }"
+                                        style="top: 9px"
+                                    ></span>
+                                    <span
+                                        class="absolute left-0 block h-0.5 w-full rounded bg-current transition-transform duration-300 ease-out [transform-origin:center]"
+                                        :class="{ '-translate-y-2 -rotate-45': mobileNavOpen }"
+                                        style="bottom: 0"
+                                    ></span>
+                                </div>
+                            </button>
                         </SheetTrigger>
                         <SheetContent side="left" class="w-[300px] p-6">
                             <SheetTitle class="sr-only"

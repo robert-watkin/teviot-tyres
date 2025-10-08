@@ -15,6 +15,7 @@ defineProps<{
     >
         <div class="w-full max-w-sm">
             <div class="flex flex-col gap-8">
+                <slot name="header-actions" />
                 <div class="flex flex-col items-center gap-4">
                     <Link
                         :href="home()"

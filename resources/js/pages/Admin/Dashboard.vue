@@ -12,49 +12,17 @@ interface Stats {
   vehiclesGrowth: number;
 }
 
-interface TopVehicle {
-  registration: string;
-  save_count: number;
-}
-
-interface RecentUser {
-  id: number;
-  name: string;
-  email: string;
-  created_at: string;
-}
-
-interface RecentVehicle {
-  id: number;
-  registration: string;
-  created_at: string;
-  user: {
-    name: string;
-  };
-}
-
 interface Props {
   stats: Stats;
-  topVehicles: TopVehicle[];
-  recentUsers: RecentUser[];
-  recentVehicles: RecentVehicle[];
 }
 
 const props = defineProps<Props>();
 
 const breadcrumbs = [
-  { label: 'Dashboard', href: '/dashboard' },
-  { label: 'Admin', href: '/admin' },
-  { label: 'Analytics' },
+  { title: 'Dashboard', href: '/dashboard' },
+  { title: 'Admin', href: '/admin' },
+  { title: 'Analytics', href: '/admin' },
 ];
-
-const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  });
-};
 </script>
 
 <template>
@@ -113,122 +81,21 @@ const formatDate = (date: string) => {
         </div>
       </div>
 
-      <!-- Recent Activity & Top Vehicles -->
-      <div class="grid gap-4 md:grid-cols-2">
-        <!-- Recent Users -->
-        <div class="rounded-xl border border-sidebar-border bg-card">
-          <div class="border-b border-sidebar-border p-4">
-            <h2 class="font-semibold">Recent Users</h2>
-            <p class="text-sm text-muted-foreground">Latest user registrations</p>
-          </div>
-          <div class="p-4">
-            <div v-if="props.recentUsers.length === 0" class="py-8 text-center text-sm text-muted-foreground">
-              No users yet
-            </div>
-            <div v-else class="space-y-3">
-              <div
-                v-for="user in props.recentUsers"
-                :key="user.id"
-                class="flex items-center justify-between rounded-lg border border-sidebar-border p-3"
-              >
-                <div>
-                  <p class="font-medium">{{ user.name }}</p>
-                  <p class="text-sm text-muted-foreground">{{ user.email }}</p>
-                </div>
-                <p class="text-xs text-muted-foreground">{{ formatDate(user.created_at) }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Top Vehicles -->
-        <div class="rounded-xl border border-sidebar-border bg-card">
-          <div class="border-b border-sidebar-border p-4">
-            <h2 class="font-semibold">Most Saved Vehicles</h2>
-            <p class="text-sm text-muted-foreground">Top 10 saved registrations</p>
-          </div>
-          <div class="p-4">
-            <div v-if="props.topVehicles.length === 0" class="py-8 text-center text-sm text-muted-foreground">
-              No vehicles saved yet
-            </div>
-            <div v-else class="space-y-2">
-              <div
-                v-for="(vehicle, index) in props.topVehicles"
-                :key="vehicle.registration"
-                class="flex items-center justify-between rounded-lg border border-sidebar-border p-3"
-              >
-                <div class="flex items-center gap-3">
-                  <div class="flex h-8 w-8 items-center justify-center rounded-full bg-[#FFD700]/20 text-sm font-bold text-[#FFD700]">
-                    {{ index + 1 }}
-                  </div>
-                  <p class="font-mono font-semibold">{{ vehicle.registration }}</p>
-                </div>
-                <p class="text-sm text-muted-foreground">{{ vehicle.save_count }} saves</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Recent Vehicle Saves -->
+      <!-- Datafast Analytics Placeholder -->
       <div class="rounded-xl border border-sidebar-border bg-card">
         <div class="border-b border-sidebar-border p-4">
-          <h2 class="font-semibold">Recent Vehicle Saves</h2>
-          <p class="text-sm text-muted-foreground">Latest vehicles saved by users</p>
+          <h2 class="font-semibold">Analytics Dashboard</h2>
+          <p class="text-sm text-muted-foreground">Datafast embedded analytics</p>
         </div>
-        <div class="p-4">
-          <div v-if="props.recentVehicles.length === 0" class="py-8 text-center text-sm text-muted-foreground">
-            No vehicles saved yet
-          </div>
-          <div v-else class="space-y-3">
-            <div
-              v-for="vehicle in props.recentVehicles"
-              :key="vehicle.id"
-              class="flex items-center justify-between rounded-lg border border-sidebar-border p-3"
-            >
-              <div class="flex items-center gap-3">
-                <div class="rounded-lg bg-[#FFD700]/20 p-2">
-                  <Car class="h-4 w-4 text-[#FFD700]" />
-                </div>
-                <div>
-                  <p class="font-mono font-semibold">{{ vehicle.registration }}</p>
-                  <p class="text-sm text-muted-foreground">Saved by {{ vehicle.user.name }}</p>
-                </div>
-              </div>
-              <p class="text-xs text-muted-foreground">{{ formatDate(vehicle.created_at) }}</p>
+        <div class="flex min-h-[500px] items-center justify-center p-8">
+          <div class="text-center">
+            <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#FFD700]/20">
+              <Car class="h-8 w-8 text-[#FFD700]" />
             </div>
+            <h3 class="text-lg font-semibold">Datafast Analytics</h3>
+            <p class="mt-2 text-sm text-muted-foreground">Embedded dashboard will appear here</p>
           </div>
         </div>
-      </div>
-
-      <!-- Quick Actions -->
-      <div class="grid gap-4 md:grid-cols-3">
-        <a
-          href="/admin/users"
-          class="rounded-xl border border-sidebar-border bg-card p-6 transition-colors hover:border-[#FFD700]/30 hover:bg-card/80"
-        >
-          <Users class="h-6 w-6 text-[#FFD700]" />
-          <h3 class="mt-3 font-semibold">Manage Users</h3>
-          <p class="mt-1 text-sm text-muted-foreground">View and manage all users</p>
-        </a>
-
-        <a
-          href="/admin/vehicles"
-          class="rounded-xl border border-sidebar-border bg-card p-6 transition-colors hover:border-[#FFD700]/30 hover:bg-card/80"
-        >
-          <Car class="h-6 w-6 text-[#FFD700]" />
-          <h3 class="mt-3 font-semibold">Manage Vehicles</h3>
-          <p class="mt-1 text-sm text-muted-foreground">View all saved vehicles</p>
-        </a>
-
-        <a
-          href="/dashboard"
-          class="rounded-xl border border-sidebar-border bg-card p-6 transition-colors hover:border-[#FFD700]/30 hover:bg-card/80"
-        >
-          <Users class="h-6 w-6 text-[#FFD700]" />
-          <h3 class="mt-3 font-semibold">Back to Dashboard</h3>
-          <p class="mt-1 text-sm text-muted-foreground">Return to your dashboard</p>
-        </a>
       </div>
     </div>
   </AppLayout>

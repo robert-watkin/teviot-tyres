@@ -9,6 +9,9 @@ defineProps<{
 
 <template>
     <AuthLayout :title="title" :description="description">
+        <template #header-actions>
+            <slot name="header-actions" />
+        </template>
         <slot />
     </AuthLayout>
 </template>

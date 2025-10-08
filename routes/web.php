@@ -48,6 +48,7 @@ Route::get('privacy', function () {
 Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
     Route::get('/users', [AdminController::class, 'users'])->name('users');
+    Route::get('/users/{user}', [AdminController::class, 'showUser'])->name('users.show');
     Route::get('/vehicles', [AdminController::class, 'vehicles'])->name('vehicles');
     Route::delete('/users/{user}', [AdminController::class, 'deleteUser'])->name('users.delete');
     Route::delete('/vehicles/{vehicle}', [AdminController::class, 'deleteVehicle'])->name('vehicles.delete');
